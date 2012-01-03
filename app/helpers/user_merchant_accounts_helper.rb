@@ -1,0 +1,2 @@
+module UserMerchantAccountsHelper
+end

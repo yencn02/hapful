@@ -1,0 +1,13 @@
+= form_for [:admin, @payment_type] do |f|
+  = render :partial=>"shared/form_errors", :locals=>{:object=>@payment_type}
+  %p
+    Name
+    = f.text_field :name
+  %p
+    Activate
+    = f.check_box :activated
+  %p
+    Requires Merchant Account
+    = f.select :requisite_merchant_account, UserMerchantAccount::TYPES.collect{|k,v| [v,k]}, :include_blank=>true
+  .actions
+    = f.submit 'Save', :class=>"greenBtn"

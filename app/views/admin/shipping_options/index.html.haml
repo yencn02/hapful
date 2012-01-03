@@ -1,0 +1,20 @@
+= content_header("Shipping Types")
+= content_header(link_to('New Shipping option', [:new, :admin, :shipping_option]), 'right')
+
+.table
+  %table
+    %tr
+      %th Name
+      %th
+      %th Option
+
+    - @shipping_options.each do |shipping_option|
+      %tr
+        %td= shipping_option.name
+        %td
+        %td
+          = link_to 'Show', [:admin, shipping_option]
+          \|
+          = link_to 'Edit', [:edit, :admin, shipping_option]
+          \|
+          = link_to 'Destroy', [:admin, shipping_option], :confirm => 'Are you sure?', :method => :delete

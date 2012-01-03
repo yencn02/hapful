@@ -1,0 +1,12 @@
+= form_for [current_user, @merchant_account] do |f|
+  %table
+    %tr
+      %td Login
+      %td= f.text_field :login
+    %tr
+      %td Email
+      %td= f.text_field :email
+    %tr
+      %td Account type
+      %td= f.select :merchant_type, UserMerchantAccount::TYPES.collect{|k,v| [v,k]}
+  = f.submit "Save", :class=>"greenBtn"

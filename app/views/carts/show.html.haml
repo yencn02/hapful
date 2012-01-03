@@ -1,0 +1,9 @@
+- if @cart.empty?
+  Your shopping cart is empty.
+  - if params[:cbed]
+    = link_to "Shop Now!", '#', :onclick=>"$('#product-trigger').trigger('click')"
+  - else
+    = link_to "Shop Now!", market_path
+
+- else
+  = render 'order_table'

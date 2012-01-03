@@ -1,0 +1,54 @@
+- if @product.belongs_to?(current_user)
+  %h3
+    = link_to "Products", products_path
+    >
+    = @product.name
+  .ui-tabs
+    %ul
+      %li= link_to "Details", "#details"
+      %li= link_to "Logistics", "#logistics"
+      %li= link_to "Widget", "#widget"
+    #details
+      %h4= link_to "Edit", [:edit, @product]
+      %table
+        %tr
+          %td Name
+          %td= @product.name
+        %tr
+          %td Description
+          %td= @product.description
+        %tr
+          %td Price
+          %td= @product.price
+        %tr
+          %td Discount Price
+          %td= @product.discounted_price
+      %h5 Images
+      - @product.images.each do |image|
+        = image_tag(image.image(:thumbnail))
+    #logistics
+      %p Logs
+    #widget{:style=>"margin-bottom: 10px"}
+      %h4= link_to "Edit", [:edit, @product, @product.widget]
+      .accordion
+        %h3= link_to "Behavior", '#'
+        %div
+          %table
+            %tr
+              %td Embed Code
+              %td= text_area_tag :embed, @product.embed_code, :readonly=>true
+            %tr
+              %td Layout
+              %td= @widget.embedded? ? "Embed on page" : "Show on click"
+            %tr
+              %td Title
+              %td= @widget.title
+        %h3= link_to "Layout", '#'
+        %div
+          %p= @widget.content
+        %h3= link_to "Preview", '#'
+        %div
+          = link_to "See Demo", [:demo, @product], :target=>"_new_window"
+- else
+  = render 'products/buyer_view'
+  

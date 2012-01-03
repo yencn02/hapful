@@ -1,0 +1,18 @@
+= content_header("Categories")
+= content_header(link_to("Add New Category", [:new, :admin, :category]), 'right')
+
+.table
+  %table
+    %tr
+      %th Name
+      %th Options
+
+    - @categories.each do |category|
+      %tr
+        %td= category.name
+        %td
+          = link_to 'Show', [:admin, category]
+          \|
+          = link_to 'Edit', [:edit, :admin, category]
+          \|
+          = link_to 'Destroy', [:admin, category], :confirm => 'Are you sure?', :method => :delete

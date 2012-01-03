@@ -1,0 +1,18 @@
+Pay Via
+= form_for :payment, :url=>do_payment_checkout_path do |f|
+  - @order.seller.payment_types.each do |payment_type|
+    = f.radio_button :method, payment_type.name
+    = payment_type.name
+    %br
+  = submit_tag 'Submit', :class=>'greenBtn'
+  /
+  /%p
+  /  = f.radio_button :method, "cc", :value=>true
+  /  Pay Using Credit Card
+  /  %table
+  /    %tr
+  /      %td= f.text_field :credit_card_number
+  /  = f.submit "Pay Now", :class=>"greenBtn"
+  /%p
+  /  = f.radio_button :method, "pp"
+  /  = link_to image_tag('paypal_express.gif'), paypal_express_checkout_path

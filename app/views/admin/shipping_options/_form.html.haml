@@ -1,0 +1,14 @@
+= form_for [:admin, @shipping_option] do |f|
+  = show_errors_for(f.object)
+
+  .table
+    %table
+      %tr
+        %td Name
+        %td= f.text_field :name
+      %tr
+        %td Additional Cost
+        %td= f.text_field :cost, :size=>8
+        
+  .actions
+    = f.submit 'Save', :class=>"greenBtn"

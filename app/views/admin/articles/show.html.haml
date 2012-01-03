@@ -1,0 +1,14 @@
+= content_header(@article.name)
+= content_for :content_header_right do
+  = link_to 'Edit', [:edit, :admin, @article]
+  \|
+  = link_to 'Back', admin_articles_path
+
+
+.table
+  %table
+    %tr
+      %td Enabled?
+      %td= @article.enabled? ? 'Yes' : 'No'
+= raw @article.content
+%br

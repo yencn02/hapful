@@ -1,0 +1,16 @@
+= content_header "Users"
+
+.table
+  %table
+    %tr
+      %th Username
+      %th Email
+      %th Option
+    - @users.each do |user|
+      %tr
+        %td= user.username
+        %td= user.email
+        %td
+          = link_to "Edit", [:edit, :admin, user]
+        
+= will_paginate @users

@@ -1,0 +1,36 @@
+%h4
+  Products ordered from
+  = seller.username
+%table
+  %thead
+    %tr
+      %th Product
+      %th Price
+      %th Quantity
+      %th Total
+  - total_amount = 0.0
+  - cart.each do |item|
+    %tr
+      %td= item[:product].name
+      %td= item[:product].effective_price
+      %td= item[:quantity]
+      %td
+        - item_amount = item[:quantity] * item[:product].effective_price
+        - total_amount += item_amount
+        = item_amount
+  %tr
+    %td{:colspan=>3}
+      %strong.right TOTAL
+    %td
+      %strong= total_amount
+
+- unless params[:controller] == 'orders'
+  - if params[:demo]
+    DEMO purposes
+  - else
+    - if params[:cbed]
+      = link_to "CHECKOUT",'#', :class=>"greenBtn", :onclick=>"window.top.location.href = '#{ProjectConfig.value('site_url')}#{url_for(checkout_path(seller.username))}';"
+      = link_to "Continue Shopping", '#', :onclick=>"$('#product-trigger').trigger('click')"
+    - else
+      = link_to "Checkout cart for #{seller.username}", checkout_path(seller.username), :class=>"redBtn"
+      = link_to "Continue Shopping", market_path

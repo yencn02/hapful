@@ -1,0 +1,12 @@
+= form_for(resource, :as=>resource_name, :url=>session_path(resource_name)) do |f|
+  %p
+    Email
+    %br
+    = f.email_field :email
+  %p
+    Password
+    %br
+    = f.password_field :password
+  = f.submit "Login"
+
+= render :partial=>"devise/shared/links"

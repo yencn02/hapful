@@ -1,0 +1,11 @@
+= form_for :cart, :url=>add_to_cart_path(@product) do |f|
+  = raw compile_template
+  = f.submit "Add to Cart"
+
+%h4 Other products from seller
+- @product.products_related_by_user.each do |product|
+  = product.name
+%br
+%h4 Products within the same category
+- @product.products_related_by_category.each do |product|
+  = product.name

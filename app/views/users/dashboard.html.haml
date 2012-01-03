@@ -1,0 +1,26 @@
+.ui-ajax-tabs
+  %ul
+    %li= link_to "Orders", "#orders"
+    %li= link_to "Products", products_path(:ajax=>true)
+    %li= link_to "Account", "#account"
+  #orders
+    %h4
+      Recent Orders
+      .right
+        = link_to "View All", [:orders]
+      .clear
+    = render :partial=>'orders/table', :locals=>{:orders=>current_user.orders.recent}
+          
+  #account
+    = link_to "Change Password", [:change_password, current_user]
+    %br
+    %br
+    = link_to "Manage Account Details", [:edit, current_user]
+    %br
+    %br
+    = link_to "Manage Merchant Accounts", [current_user, :user_merchant_accounts]
+    %br
+    %br
+    = link_to "Manage Accepted Payment Methods", [current_user, :user_payment_methods]
+    %br
+    %br

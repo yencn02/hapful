@@ -1,0 +1,2 @@
+module Admin::ShippingOptionsHelper
+end

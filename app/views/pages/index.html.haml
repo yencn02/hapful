@@ -1,0 +1,6 @@
+%h1 Welcome
+
+- @articles.each do |article|
+  %h4= article.name
+  = raw article.content
+  %hr

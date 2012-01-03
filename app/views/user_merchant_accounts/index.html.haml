@@ -1,0 +1,21 @@
+.right
+  = link_to "Add New Merchant Account", [:new, current_user, :user_merchant_account], :class=>"whiteBtn"
+.clear
+%table
+  %thead
+    %tr
+      %th Merchant Account Type
+      %th Merchant Login
+      %th Merchant Email
+      %th{:colspan=>3} Options
+  - @merchant_accounts.each do |account|
+    %tr
+      %td= UserMerchantAccount::TYPES[account.merchant_type.to_sym]
+      %td
+      %td
+      %td
+        = link_to "Details", [current_user, account]
+        \|
+        = link_to "Edit", [:edit, current_user, account]
+        \|
+        = link_to "Delete", [current_user, account], :confirm=>'Are you sure?',:method=>:destroy

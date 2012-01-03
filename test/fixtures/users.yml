@@ -1,0 +1,8 @@
+seller1:
+  id: 1
+  username: seller1
+  password: 12345678
+  password_confirmation: 12345678
+  email: hapful.merchant@gmail.com
+
+

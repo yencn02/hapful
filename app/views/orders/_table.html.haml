@@ -1,0 +1,22 @@
+%table.zebra
+  %thead
+    %tr
+      %th Order Date
+      %th State
+      %th Payment State
+      %th Transaction Reference
+      %th Payment via
+      %th Options
+  - orders.recent.each do |order|
+    %tr
+      %td= order.created_at.strftime('%D')
+      %td= order.state
+      %td= order.payment_state
+      %td= order.transaction_reference_id
+      %td= order.payment_method_name
+      %td{:style=>'font-size: 80%'}
+        = link_to_function "View Details"
+        \|
+        = link_to "Mark Completed"
+        \|
+        = link_to "Cancel"

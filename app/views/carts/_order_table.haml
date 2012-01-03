@@ -1,0 +1,3 @@
+- @cart.each do |seller, cart|
+  = render :partial=>'cart_per_seller', :locals=>{:cart=>cart, :seller=>seller}
+    

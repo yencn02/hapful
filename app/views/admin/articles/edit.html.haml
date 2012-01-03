@@ -1,0 +1,8 @@
+= content_header "Edit Article"
+= content_for :content_header_right do
+  = link_to 'Show', @admin_article
+  \|
+  = link_to 'Back to index', admin_articles_path
+= render 'form'
+
+

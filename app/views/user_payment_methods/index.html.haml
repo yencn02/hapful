@@ -1,0 +1,22 @@
+= form_tag [current_user, :user_payment_methods] do
+  %table
+    %thead
+      %tr
+        %th
+        %th Name
+        %th Description
+        %th Remarks
+    - PaymentType.activated.each do |payment_type|
+      %tr
+        %td
+          = check_box_tag "payment_methods[]", payment_type.id, |
+            current_user.payment_types.include?(payment_type), :disabled=>current_user.cant_use_payment_type(payment_type)
+        %td
+          = payment_type.name
+        %td
+          = payment_type.description
+        %td
+          - if current_user.cant_use_payment_type(payment_type)
+            = "#{payment_type.name} is needed. Create an account "
+            = link_to "HERE", [:new, current_user, :user_merchant_account], :target=>'_blank'
+  = submit_tag "Accept Payment Methods", :class=>'greenBtn'

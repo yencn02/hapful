@@ -1,0 +1,50 @@
+.halfcolright
+  = nested_form_for @order, :url=>build_order_path(:merchant=>params[:merchant]) do |f|
+    = render :partial=>"shared/form_errors", :locals=>{:object=>f.object}
+    %table
+      %tr
+        %td Email
+        %td= f.email_field :email
+    %hr
+    = f.fields_for :billing_address do |billing|
+      %table
+        %tr
+          %td First Name
+          %td= billing.text_field :first_name
+        %tr
+          %td Last Name
+          %td= billing.text_field :last_name
+        %tr
+          %td Street
+          %td= billing.text_field :street_1
+    - dif_ship = !f.object.shipping_address.nil?
+    %p
+      = f.check_box :different_address, |
+        {:onclick=>"$('#shipping-address').slideToggle(); $('#order_shipping_address_attributes_diff_add').val($('#order_different_address').is(':checked'))"}
+      %label Shipping Address is different from billing address
+    #shipping-address{:style=>"display: #{f.object.different_address? ? 'block' : 'none'}"}
+      = f.fields_for :shipping_address do |shipping|
+        %table
+          %tr
+            %td First Name
+            %td= shipping.text_field :first_name
+          %tr
+            %td Last Name
+            %td= shipping.text_field :last_name
+          %tr
+            %td Street
+            %td= shipping.text_field :street_1
+        = shipping.hidden_field :diff_add, :value=>f.object.different_address?
+    = f.submit "Place Order", :class=>"greenBtn"
+.half
+  %h4 Review your order
+  = render :partial=>'carts/cart_per_seller', :locals=>{:cart=>@cart_for_seller, :seller=>@seller}
+  %h4 Select Shipping Option
+  %table
+    - ShippingOption.active.each do |shipping_option|
+      %tr
+        %td
+          = radio_button_tag "order[shipping_method]", shipping_option.id
+          = shipping_option.name
+.clear
+  

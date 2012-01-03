@@ -1,0 +1,15 @@
+= form_for [:admin, @category] do |f|
+  = show_errors_for(f.object)
+
+  .table
+    %table
+      %tr
+        %td Name
+        %td= f.text_field :name
+      %tr
+        %td Parent Category
+        %td= f.select :parent_category_id, Category.all.collect{|category| [category.name, category.id]}
+
+    = f.submit 'Save', :class=>'greenBtn'
+    \|
+    = link_to 'Cancel', [:admin, :categories]

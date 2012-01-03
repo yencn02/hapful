@@ -1,0 +1,143 @@
+@import 'blueprint'
+
+body
+  :font-family "Helvetica Neue", Arial, Helvetica, sans-serif
+
+a
+  :text-decoration none
+  :color #444444
+a:hover
+  :color #008afd
+
+#form_errors
+  :border 1px solid red
+  :color black
+  h4
+    :background  #A0000F
+    :color white
+    :margin-bottom 1em
+
+#error_explanation
+  :border 1px solid red
+  :color black
+  h2
+    :font-size 14px
+    :background  #A0000F
+    :color white
+    :margin-bottom 1em
+
+.field_with_errors
+  input
+    :background pink
+  
+
+#top_navigation
+  :height 30px
+  :background url('images/footer.gif')
+  :border-radius 0 0 1em 1em
+  :-moz-border-radius 0 0 1em 1em
+  :font-size 14px
+  :text-align right
+  :padding 5px 15px 0 0
+  :color #999
+  a
+    :text-decoration none
+    :color #EEE
+  a:hover
+    :color #AAA
+
+#container
+  +container
+  +prepend-top(20px)
+
+#header
+  :background #A0000F
+  :border-radius 0.5em 4em 0 0
+  :-moz-border-radius 0.5em 4em 0 0
+
+#content-holder
+  :padding-bottom 1em
+  +prepend(1)
+  +append(1)
+  :min-height 4em
+  :background #A0000F
+  :border-radius 0 0 0.5em 2em
+  :-moz-border-radius 0 0 0.5em 2em
+
+  #content
+    :padding 10px 0
+    +prepend(0.5)
+    +append(0.5)
+    :background #FFF
+
+  #footer
+    :background #000
+    :min-height 1em
+    :color #FFF
+    :text-align center
+
+#search-products
+  :padding 10px
+  :background light-gray
+
+#widget-preview
+  :border-radius 2px 2px 2px 2px
+  :-moz-border-radius 2px 2px 2px 2px
+  :min-height 200px
+  :background #EFEFEF
+
+.flash
+  :border-radius 2px 2px 2px 2px
+  :-moz-border-radius 2px 2px 2px 2px
+  :padding 0.8em
+  :border 2px solid #DDDDDD
+  :margin-bottom 1em
+
+#notice-message
+  :background none repeat scroll 0 0 #E6EFC2
+  :color #264409
+  :border-color #C6D880
+
+#error-message
+  :background none repeat scroll 0 0 #FBE3E4
+  :color #8A1F11
+  :border-color #FBC2C4
+  
+
+.half
+  +column(9)
+  //:float left
+  //:width 50%
+
+.colright
+  +border('#9E9E9E', 1px)
+
+.halfcolright
+  +column(10)
+  +colborder('#9E9E9E', 1px)
+
+.clear
+  :clear both
+
+.notes, .notes a
+  :font-style italic
+  :margin 0 0 1em
+  :font-size 90%
+  :color #d9d9d9
+  
+
+.dotted_link
+  :text-decoration none
+  :border-bottom 1px dotted
+
+.image_holder
+  :margin-right 20px
+  :float left
+  img
+    :height 100px
+    :border 1px solid gray
+  .image_title
+
+  
+  
+  

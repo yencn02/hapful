@@ -1,0 +1,41 @@
+class WidgetsController < ApplicationController
+
+  layout 'iframe'
+  
+  def show
+    @product = Product.find_by_widget_hash(params[:widget_hash])
+    @content = render_to_string(:partial=>"shared/widget_content", :locals => {:product => @product})
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def frame
+    @product = Product.find_by_widget_hash(params[:widget_hash])
+    @cart = Cart.find_by_buyer_ip_address_and_buyer_cookie(request.env['REMOTE_ADDR'], cookies["_hapful_session"]) || Cart.new
+    @content = if !@product.product_layout.nil?
+      @product.product_layout.content
+    else
+      render_to_string(:partial=>'templates/default_product_layout')
+    end
+    respond_to do |format|
+      format.html 
+      format.js { render_to_facebox }
+      format.json
+    end
+  end
+
+  def checkout
+    
+  end
+
+  private
+
+  def to_json_value(str)
+    str.gsub!("\"", "\\\"")
+    str.gsub!(/\n+/, " ")
+    str
+  end
+  
+end

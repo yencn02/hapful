@@ -1,0 +1,60 @@
+!!!
+%html
+  %head
+    = csrf_meta_tag
+
+    = javascript_include_tag 'jquery'
+    = javascript_include_tag 'jquery_ujs'
+    = javascript_include_tag 'jquery-ui'
+    = javascript_include_tag 'nested_form'
+    = javascript_include_tag 'tooltip'
+    = javascript_include_tag 'jquery.colorbox'
+    = javascript_include_tag 'application'
+
+    = stylesheet_link_tag 'screen', :media=>'screen, projection'
+    = stylesheet_link_tag 'screen'
+    /[if IE]
+      = stylesheet_link_tag 'ie'
+
+    = include_yui_editor_if_used.html_safe rescue ''
+
+    = stylesheet_link_tag 'typography'
+    = stylesheet_link_tag 'buttons'
+    = stylesheet_link_tag 'colorbox'
+    = stylesheet_link_tag 'jquery-ui-1.8.16.custom'
+    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'gradients'
+
+    = yield :head
+    %title
+      HAPFUL
+  %body
+    #loading
+    #top_navigation
+      = link_to "home", '/'
+      \|
+      = link_to "faqs", '/'
+      \|
+      = link_to "my cart", '/my-cart'
+      \|
+      = link_to "market", '/market'
+      \|
+      - if user_signed_in?
+        = link_to "my account", user_dashboard_path
+        \|
+        = link_to "logout", '/logout'
+      - else
+        = link_to 'login', '/login'
+        \|
+        = link_to 'register', '/users/sign_up'
+    
+    #container
+      #header
+        = image_tag("test-logo.png", :style=>"padding: 25px")
+      .clear
+      #content-holder
+        #content
+          = render 'shared/flash_messages'
+          = yield
+        #footer
+          Copyright

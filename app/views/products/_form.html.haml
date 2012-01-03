@@ -1,0 +1,51 @@
+= nested_form_for @product, :html=>{:class=>"blue", :multipart=>true} do |f|
+  = render :partial=>'shared/form_errors', :locals=>{:object=>@product}
+  %fieldset
+    %legend DETAILS
+    %table
+      %tr
+        %td.right Name
+        %td= f.text_field :name
+      %tr
+        %td.right Price
+        %td= f.text_field :price, :size=>'8'
+      %tr
+        %td.right Discounted Price
+        %td= f.text_field :discounted_price, :size=>'8'
+      %tr
+        %td.right Quantity
+        %td= f.text_field :quantity, :size=>'8'
+      %tr
+        %td.right Category
+        %td= f.select :category_id, Category.all.collect{|category| [category.name, category.id]}
+      %tr
+        %td.right Description
+        %td= f.text_area :description
+      %tr
+        %td.right Tags (separated by comma)
+        %td= f.text_area :tag_list, :style=>"height:30px"
+  %fieldset
+    %legend
+      IMAGES
+    = f.fields_for :images do |image_form|
+      - if image_form.object.new_record?
+        = image_form.file_field :image
+      - else
+        = image_tag image_form.object.image(:thumbnail)
+      = image_form.link_to_remove image_tag("close.png")
+    = f.link_to_add "Add Image", :images
+  %fieldset
+    %legend
+      OPTIONS
+      %span.notes= link_to "What's this?", '#', :class=>"dotted_link tooltip", :title=>"Variants your product may have"
+    = f.fields_for :options do |option_form|
+      %div
+        Description
+        = option_form.text_field :description, :size=>25
+        Quantity
+        = option_form.text_field :quantity, :size=>8
+        = option_form.link_to_remove image_tag("close.png")
+    = f.link_to_add "Add another option", :options
+  = f.submit 'Save', :class=>"greenBtn"
+
+

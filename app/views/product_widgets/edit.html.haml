@@ -1,0 +1,32 @@
+= form_for([@product, @product.widget]) do |f|
+  = render :partial=>"shared/form_errors", :locals=>{:object=>f.object}
+  .halfcolright
+    .ui-tabs
+      %ul
+        %li= link_to "Behavior", "#widget-behavior"
+        %li= link_to "Layout", "#widget-layout", :id=>'layout-trigger'
+        %li= link_to "Objects", "#widget-objects"
+      #widget-behavior
+        %table
+          %tr
+            %td Title
+            %td= f.text_field :title
+          %tr
+            %td Embed on site
+            %td= f.check_box :embedded
+      #widget-layout
+        = f.text_area :content, :class => 'rich_text_editor', :size=>'70%x10%'
+      #widget-objects
+        .accordion
+          - @widget.contents.each do |content|
+            %h3= link_to content.name, '#'
+            %div
+              = link_to_function 'Add to Layout', "add_to_yui('product_widget_content_editor','{{ #{content.name} }}'); $('#layout-trigger').trigger('click')"
+                
+
+  #widget-preview.half
+    = render 'template'
+  .clear
+  = f.submit "Save", :class=>"greenBtn", :onclick=>"$('#product_widget_content').val($('#product_widget_content_editor').contents().find('body').html())"
+  /= link_to "Submit", '#', {:class=>"greenBtn", :onclick=>"submit_widget_layout('#{url_for([@product, @product.widget])}')"}
+  = link_to "Preview", "#", {:class=>"whiteBtn", :onclick=>"show_widget_preview('product_widget_content_editor','#{url_for([:preview, @product, @product.widget])}')"}

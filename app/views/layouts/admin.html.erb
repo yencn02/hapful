@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <%= csrf_meta_tag %>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Hapful Administration</title>
+    <%= javascript_include_tag 'jquery' %>
+    <%= javascript_include_tag 'jquery_ujs' %>
+    <%= javascript_include_tag 'jquery-ui' %>
+
+    <%= include_yui_editor_if_used.html_safe rescue '' %>
+    <%= stylesheet_link_tag "screen" %>
+    <%= stylesheet_link_tag "buttons" %>
+    <%= stylesheet_link_tag "admin-module" %>
+    <%= yield :head %>
+  </head>
+  <body>
+    <!-- Header -->
+    <div id="header">
+      <div class="shell">
+        <!-- Logo + Top Nav -->
+        <div id="top">
+          <h1>
+            <%= link_to "Hapful Administration", '/admin' %>
+          </h1>
+          <div id="top-navigation">
+				Welcome <%= link_to current_user.email, "/" %>
+            <span>|</span>
+            <a href="#">Help</a>
+            <span>|</span>
+            <a href="#">Profile Settings</a>
+            <span>|</span>
+            <%= link_to "Logout", '/logout' %>
+          </div>
+        </div>
+        <!-- End Logo + Top Nav -->
+
+        <!-- Main Nav -->
+        <div id="navigation">
+          <ul>
+<%# TODO: navigation %>
+          </ul>
+        </div>
+        <!-- End Main Nav -->
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Container -->
+    <div id="container">
+      <div class="shell">
+        <!-- Small Nav -->
+        <div class="small-nav">
+          <%= yield :breadcrumbs %>
+        </div>
+        <!-- End Small Nav -->
+
+        <!-- Message OK -->
+        <%= render 'shared/flash_messages' %>
+        <br />
+        <!-- Main -->
+        <div id="main">
+          <div class="cl">&nbsp;</div>
+          <!-- Content -->
+          <div id="content">
+            <!-- Box -->
+            <div class="box">
+              <!-- Box Head -->
+              <div class="box-head">
+                <h2 class="left">
+                  <%= yield :content_header_left %>
+                </h2>
+                <div class="right">
+                  <label class="white">
+                    <%= yield :content_header_right %>
+                  </label>
+                </div>
+              </div>
+              <!-- End Box Head -->
+
+              <div id="content-holder">
+                <%= yield %>
+              </div>
+            </div>
+            <!-- End Box -->
+          </div>
+          <!-- End Content -->
+
+          <!-- Sidebar -->
+          <div id="sidebar">
+            <!-- Box -->
+            <div class="box">
+              <!-- Box Head -->
+              <div class="box-head">
+                <h2>
+                  Admin Navigation
+                  <%= yield :sidebar_header %>
+                </h2>
+              </div>
+              <!-- End Box Head-->
+
+              <div class="box-content">
+                <%= render 'admin/shared/sidebar' %>
+                <%= yield :sidebar_content %>
+              </div>
+            </div>
+            <!-- End Box -->
+          </div>
+          <!-- End Sidebar -->
+          <div class="cl">&nbsp;</div>
+        </div>
+        <!-- Main -->
+      </div>
+    </div>
+    <!-- End Container -->
+
+    <!-- Footer -->
+    <div id="footer">
+      <div class="shell">
+        <span class="left">&copy; 2011 - Hapful</span>
+        <span class="right">
+			Design by <a href="http://chocotemplates.com" target="_blank" title="The Sweetest CSS Templates WorldWide">Chocotemplates.com</a>
+        </span>
+      </div>
+    </div>
+    <!-- End Footer -->
+
+  </body>
+</html>

@@ -1,0 +1,26 @@
+= content_header("Articles")
+= content_header(link_to('New Article', [:new, :admin, :article]), :right)
+
+.table
+  %table
+    %tr
+      %th Title
+      %th Page
+      %th Enabled?
+      %th Options
+
+    - @articles.each do |article|
+      %tr
+        %td= article.name
+        %td= article.page
+        %td= article.enabled? ? 'Yes' : 'No'
+        %td
+          = link_to 'Show', [:admin, article]
+          \|
+          = link_to 'Edit', [:edit, :admin, article]
+          \|
+          = link_to 'Destroy', [:admin, article], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+

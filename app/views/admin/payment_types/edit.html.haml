@@ -1,0 +1,8 @@
+= content_header("Edit Payment Type")
+= content_for :content_header_right do
+  = link_to 'Show', [:admin, @payment_type]
+  \|
+  = link_to 'Back', [:admin, :payment_types]
+= render 'form'
+
+

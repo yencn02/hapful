@@ -1,0 +1,11 @@
+.rvmrc
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
+public/stylesheets/application.css
+netbeans/
+config/database.yml
+public/system/
+public/assets/
+nbproject/

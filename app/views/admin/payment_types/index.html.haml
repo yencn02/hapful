@@ -1,0 +1,23 @@
+= content_header("Payment Type")
+= content_for :content_header_right do
+  = link_to 'New Payment type', new_admin_payment_type_path
+
+.table
+  %table
+    %tr
+      %th Name
+      %th Enabled?
+      %th{:colspan=>3} Options
+
+    - @payment_types.each do |payment_type|
+      %tr
+        %td= payment_type.name
+        %td= payment_type.activated? ? 'Yes' : 'No'
+        %td
+          = link_to 'Show', [:admin, payment_type]
+          \|
+          = link_to 'Edit', [:edit, :admin, payment_type]
+          \|
+          = link_to 'Destroy', [:admin, payment_type], :confirm => 'Are you sure?', :method => :delete
+%br
+

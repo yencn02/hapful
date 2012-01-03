@@ -1,0 +1,19 @@
+= form_for [:admin, @article] do |f|
+  = show_errors_for(f.object)
+
+  .table
+    %table
+      %tr
+        %td Title
+        %td= f.text_field :name
+      %tr
+        %td Content
+        %td= f.text_area :content, :class => 'rich_text_editor', :size=>'70%x10%'
+      %tr
+        %td Placement
+        %td= f.select :page, Article::PAGES
+      %tr
+        %td Enable
+        %td= f.check_box :enabled
+  .actions
+    = f.submit 'Save', :class=>"greenBtn"

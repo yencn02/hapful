@@ -1,0 +1,18 @@
+= content_header "Project Configurations"
+= content_for :content_header_right do
+  = link_to "New Project Configuration", [:new, :admin, :project_config]
+
+.table
+  %table
+    %tr
+      %th Key
+      %th Value
+      %th Description
+      %th Option
+    - @configs.each do |config|
+      %tr
+        %td= config.key
+        %td= config.value
+        %td= config.description
+        %td
+          = link_to 'Edit', [:edit, :admin, config]
