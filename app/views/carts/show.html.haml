@@ -5,5 +5,10 @@
   - else
     = link_to "Shop Now!", market_path
 
+
 - else
-  = render 'order_table'
+  - if params[:seller]
+    - seller = User.find(params[:seller])
+    = render :partial=>'cart_per_seller', :locals=>{:cart=>@cart[seller], :seller=>seller}
+  - else
+    = render 'order_table'

@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
       return redirect_to '/my-cart'
     end
     @order = Order.new()
+    @order.seller = @seller
     @order.build_shipping_address
   end
 
@@ -39,10 +40,10 @@ class OrdersController < ApplicationController
   end
 
   def completed
+    return redirect_to market_path if session[:active_order].nil?
     @order = Order.find(session[:active_order])
     @order.mark_as_for_delivery!
     session[:active_order] = nil
-    render :text=>"Completed"
   end
 
   private

@@ -1,0 +1,30 @@
+%h3
+  Order No.
+  = @order.id
+
+%table
+  %tr
+    %td
+      Buyer
+    %td
+      = @order.email
+  %tr
+    %td Payment State
+    %td= @order.payment_state.humanize
+  %tr
+    %td State
+    %td= @order.state.humanize
+
+%h5 Items
+%table.zebra
+  %thead
+    %tr
+      %th Product Name
+      %th Product Variant
+      %th Quantity
+  - @order.items.each do |item|
+    %tr
+      %td
+        = item.product.name
+      %td= item.product_option_value
+      %td= item.quantity

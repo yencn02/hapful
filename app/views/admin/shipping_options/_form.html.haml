@@ -7,8 +7,8 @@
         %td Name
         %td= f.text_field :name
       %tr
-        %td Additional Cost
-        %td= f.text_field :cost, :size=>8
+        %td Activated
+        %td= f.check_box :activated
         
   .actions
     = f.submit 'Save', :class=>"greenBtn"

@@ -19,7 +19,7 @@
       #widget-objects
         .accordion
           - @widget.contents.each do |content|
-            %h3= link_to content.name, '#'
+            %h3= link_to content.name.humanize, '#'
             %div
               = link_to_function 'Add to Layout', "add_to_yui('product_widget_content_editor','{{ #{content.name} }}'); $('#layout-trigger').trigger('click')"
                 

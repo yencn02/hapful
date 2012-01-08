@@ -20,11 +20,20 @@ class ApplicationController < ActionController::Base
     @cart_seller_ids = Marshal.load(cookies["#{cookies["_hapful_session"]}-sellers".to_sym]) rescue []
     @cart_seller_ids.each do |seller_id|
       cart_contents = Marshal.load(cookies["#{cookies["_hapful_session"]}-#{seller_id}".to_sym]) rescue {}
+      user = User.find(seller_id.to_i)
+      @cart[user] = []
       cart_contents.each do |k,v|
         product = Product.find(v[:product_id]) rescue next
-        @cart[User.find(seller_id.to_i)] = []
-        @cart[User.find(seller_id.to_i)] << v.merge({:product=>product})
+        @cart[user] << v.merge({:product=>product})
       end
+    end
+  end
+
+  def cart_per_seller_from_cookie(seller)
+    cart_contents.each do |k,v|
+      product = Product.find(v[:product_id]) rescue next
+      @cart[User.find(seller_id.to_i)] = []
+      @cart[User.find(seller_id.to_i)] << v.merge({:product=>product})
     end
   end
   

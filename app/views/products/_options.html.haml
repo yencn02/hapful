@@ -1,0 +1,6 @@
+%table
+  - @product.options.each do |option|
+    %tr
+      %td
+        = radio_button_tag "cart[product_option_id]", option.id
+        = option.description

@@ -1,0 +1,37 @@
+= nested_form_for @user, :url=>url_for([:update_merchant_detail, current_user]),:method=>:post, :html=>{:class=>'blue'} do |f|
+  %fieldset
+    %legend Merchant Account
+    = f.fields_for :merchant_accounts do |merch_f|
+      %table
+        %tr
+          %td Email
+          %td= merch_f.text_field :email
+          %td Account Type
+          %td= merch_f.select :merchant_type, UserMerchantAccount::TYPES.collect{|k,v| [k.to_s.humanize,k]}
+    = f.link_to_add "Add Merchant Account", :merchant_accounts
+  %fieldset
+    %legend Accepted Payment Methods
+    - PaymentType.activated.each do |payment_type|
+      %p
+        = check_box_tag "payment_methods[]", payment_type.id, |
+          current_user.payment_types.include?(payment_type)
+        = payment_type.name
+        - if current_user.cant_use_payment_type(payment_type)
+          = "(#{payment_type.requisite_merchant_account.humanize} account is needed. Please add it as one of your merchant account)"
+  %fieldset
+    %legend Accepted Shipping Methods
+    %table.zebra{:style=>"width: 50%"}
+      - ShippingOption.active.each do |shipping_option|
+        %tr
+          %td
+            = check_box_tag "shipping_method[#{shipping_option.id}]shipping_option_id", |
+              shipping_option.id, current_user.shipping_option_ids.include?(shipping_option.id)
+            = shipping_option.name
+          %td
+            Additional Cost
+            = text_field_tag "shipping_method[#{shipping_option.id}]amount", |
+              current_user.shipping_methods.for_option(shipping_option).amount, :size=>8
+          %span
+          
+    
+  = f.submit "Save", :class=>'greenBtn'

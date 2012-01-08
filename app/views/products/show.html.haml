@@ -27,7 +27,20 @@
       - @product.images.each do |image|
         = image_tag(image.image(:thumbnail))
     #logistics
-      %p Logs
+      %h5
+        Remaining Quantity:
+        = @product.quantity
+      %table
+        %thead
+          %tr
+            %th Order
+            %th Order Status
+            %th Quantity
+          - @product.order_items.each do |item|
+            %tr
+              %td= item.order.reference_number
+              %td= item.order.state.humanize
+              %td= item.quantity
     #widget{:style=>"margin-bottom: 10px"}
       %h4= link_to "Edit", [:edit, @product, @product.widget]
       .accordion

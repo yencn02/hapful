@@ -31,6 +31,8 @@ Hapful::Application.routes.draw do
     member do
       get :change_password
       post :update_password
+      get :merchant_detail
+      match :update_merchant_detail
     end
     resources :user_merchant_accounts, :path=>:merchaccounts
     resources :user_payment_methods, :path=>:paygates
@@ -61,7 +63,7 @@ Hapful::Application.routes.draw do
   post  '/checkout/payment'           => 'payments#create',                   :as=>:do_payment_checkout
   get   '/checkout/complete_ppexpress'=> 'payments#complete_paypal_express',  :as=>:complete_paypal_express
   get   '/checkout/:merchant'         => 'orders#new',                        :as=>:checkout
-  post  '/checkout'                   => 'orders#create',                     :as=>:build_order
+  post  '/checkout/:merchant'         => 'orders#create',                     :as=>:build_order
 
   match '/market' => 'pages#market', :as=>:market
   match '/complete' => 'orders#completed', :as=>:completed_order

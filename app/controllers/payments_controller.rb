@@ -26,12 +26,13 @@ class PaymentsController < ApplicationController
           :ip                => request.remote_ip,
           :return_url        => complete_paypal_express_url,
           :cancel_return_url => show_cart_url,
-          :items             => @order.arrayed_items,
+          :items             => @order.arrayed_items(true),
           :subtotal          => @order.subtotal_amount.to_cents,
           :shipping          => @order.shipping_amount.to_cents,
+          :handling          => @order.handling_amount.to_cents,
           :tax               => @order.tax_amount.to_cents
         )
-        @order.transaction_reference_id = paypal_response.token
+        @order.build_reference(paypal_response.token)
         @order.save
         redirect_to @gateway.redirect_url_for(paypal_response.token)
       rescue Exception => e
@@ -68,7 +69,8 @@ class PaymentsController < ApplicationController
     @order = Order.find(session[:active_order])
     if Order::PAYMENT_STATES.include?(params[:state])
       clear_cart_cookies
-      @order.mark_payment_state_as_paid!
+      @order.build_reference("")
+      @order.send("mark_payment_state_as_#{params[:state]}!".to_sym)
       redirect_to completed_order_path
     end
   end

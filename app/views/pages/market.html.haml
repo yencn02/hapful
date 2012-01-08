@@ -6,23 +6,31 @@
       = select_tag "category", options_for_select(Category.all.collect{|ca| [ca.name, ca.id]})
       = submit_tag "Search", :class=>'greenBtn'
       = link_to 'Advanced Search', '/'
-.ui-tabs
-  %ul
-    %li= link_to "Top Rated Products", "#top-rated"
-    %li= link_to "Newest", "#newest"
-    %li= link_to "Most Viewed", "#most-viewed"
-  #top-rated
-    %h3 Top Rated Products
-    - @top_rateds.each do |top_rated|
-      = render :partial=>'shared/product_image', :locals=>{:product=>top_rated}
-    .clear
-  #newest
-    %h3 Newest Products
-    - @newly_addeds.each do |product|
-      = render :partial=>'shared/product_image', :locals=>{:product=>product}
-    .clear
-  #most-viewed
-    %h3 Most Viewed Products
-    - @most_viewed.each do |product|
-      = render :partial=>'shared/product_image', :locals=>{:product=>product}
-    .clear
+
+.quarter
+  %h5 Categories
+  - Category.all.each do |category|
+    = category.name
+    %br
+.thirds
+  .ui-tabs
+    %ul
+      %li= link_to "Top Rated Products", "#top-rated"
+      %li= link_to "Newest", "#newest"
+      %li= link_to "Most Viewed", "#most-viewed"
+    #top-rated
+      %h3 Top Rated Products
+      - @top_rateds.each do |top_rated|
+        = render :partial=>'shared/product_image', :locals=>{:product=>top_rated}
+      .clear
+    #newest
+      %h3 Newest Products
+      - @newly_addeds.each do |product|
+        = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      .clear
+    #most-viewed
+      %h3 Most Viewed Products
+      - @most_viewed.each do |product|
+        = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      .clear
+.clear

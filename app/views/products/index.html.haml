@@ -1,5 +1,10 @@
-.right= link_to "Add New Product", [:new, :product], :class=>"greenBtn"
+.right
+  - if current_user.incomplete_merchant_details?
+    Please update your merchant details before creating a product.
+  - else
+    = link_to "Add New Product", [:new, :product], :class=>"greenBtn"
 .clear
+%br
 #list
   %table.zebra
     %thead

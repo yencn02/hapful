@@ -18,9 +18,10 @@
     = link_to "Manage Account Details", [:edit, current_user]
     %br
     %br
-    = link_to "Manage Merchant Accounts", [current_user, :user_merchant_accounts]
-    %br
-    %br
-    = link_to "Manage Accepted Payment Methods", [current_user, :user_payment_methods]
-    %br
-    %br
+    = link_to "Manage Merchant Details", [:merchant_detail, current_user]
+    /= link_to "Manage Merchant Accounts", [current_user, :user_merchant_accounts]
+    /%br
+    /%br
+    /= link_to "Manage Accepted Payment Methods", [current_user, :user_payment_methods]
+    /%br
+    /%br

@@ -1,7 +1,4 @@
 = form_for :cart, :url=>"#{ProjectConfig.value('site_url')}#{add_to_cart_path(@product)}" do |f|
   = raw compile_template
-  #inline-content
-    - @product.images.each do |image|
-      = link_to image_tag("#{ProjectConfig.value('site_url')}#{image.image(:thumbnail)}"), "#{ProjectConfig.value('site_url')}#{image.image.url}", :class=>"colorbox-gallery"
   - unless @demo
     = f.submit "Add to Cart", :class=>"greenBtn"

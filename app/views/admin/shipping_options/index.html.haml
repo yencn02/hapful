@@ -5,13 +5,13 @@
   %table
     %tr
       %th Name
-      %th
+      %th Activated
       %th Option
 
     - @shipping_options.each do |shipping_option|
       %tr
         %td= shipping_option.name
-        %td
+        %td= shipping_option.activated? ? 'Yes' : 'No'
         %td
           = link_to 'Show', [:admin, shipping_option]
           \|

@@ -1,5 +1,5 @@
-.halfcolright
-  = nested_form_for @order, :url=>build_order_path(:merchant=>params[:merchant]) do |f|
+= nested_form_for @order, :url=>build_order_path(:merchant=>params[:merchant]) do |f|
+  .halfcolright
     = render :partial=>"shared/form_errors", :locals=>{:object=>f.object}
     %table
       %tr
@@ -36,15 +36,18 @@
             %td= shipping.text_field :street_1
         = shipping.hidden_field :diff_add, :value=>f.object.different_address?
     = f.submit "Place Order", :class=>"greenBtn"
-.half
-  %h4 Review your order
-  = render :partial=>'carts/cart_per_seller', :locals=>{:cart=>@cart_for_seller, :seller=>@seller}
-  %h4 Select Shipping Option
-  %table
-    - ShippingOption.active.each do |shipping_option|
-      %tr
-        %td
-          = radio_button_tag "order[shipping_method]", shipping_option.id
-          = shipping_option.name
+  .half
+    %h4 Review your order
+    = render :partial=>'carts/cart_per_seller', :locals=>{:cart=>@cart_for_seller, :seller=>@seller}
+    %h4 Select Shipping Method
+    %table
+      - @order.seller.shipping_methods.each do |shipping_method|
+        %tr
+          %td
+            = f.radio_button :shipping_method_id, shipping_method.id
+            = shipping_method.name
+            (
+            = shipping_method.humanized_amount
+            )
 .clear
   

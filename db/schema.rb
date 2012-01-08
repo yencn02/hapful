@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120103041056) do
+ActiveRecord::Schema.define(:version => 20120105090639) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20120103041056) do
     t.float    "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "product_option_id"
   end
 
   add_index "order_items", ["order_id"], :name => "index_order_items_on_order_id"
@@ -106,12 +107,13 @@ ActiveRecord::Schema.define(:version => 20120103041056) do
     t.string   "payment_method_name"
     t.string   "payment_state"
     t.string   "state"
-    t.string   "transaction_reference_id"
+    t.string   "reference_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "shipping_method_id"
   end
 
-  add_index "orders", ["id", "transaction_reference_id"], :name => "index_orders_on_id_and_transaction_reference_id", :unique => true
+  add_index "orders", ["id", "reference_number"], :name => "index_orders_on_id_and_transaction_reference_id", :unique => true
   add_index "orders", ["payment_method_name"], :name => "index_orders_on_payment_method_name"
   add_index "orders", ["payment_type_id"], :name => "index_orders_on_payment_type_id"
   add_index "orders", ["seller_id"], :name => "index_orders_on_seller_id"
@@ -250,6 +252,17 @@ ActiveRecord::Schema.define(:version => 20120103041056) do
   end
 
   add_index "user_payment_methods", ["user_id", "payment_type_id"], :name => "index_user_payment_methods_on_user_id_and_payment_type_id"
+
+  create_table "user_shipping_methods", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "shipping_option_id"
+    t.float    "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_shipping_methods", ["shipping_option_id"], :name => "index_user_shipping_methods_on_shipping_option_id"
+  add_index "user_shipping_methods", ["user_id"], :name => "index_user_shipping_methods_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

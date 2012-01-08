@@ -1,12 +1,9 @@
 .ui-ajax-tabs
   %ul
     %li= link_to 'Product', '#product', :id=>"product-trigger"
-    %li= link_to 'My Cart', "/my-cart?cbed=1#{'&demo=1' if params[:demo]}", :id=>"cart-trigger"
+    %li= link_to 'My Cart', "/my-cart?cbed=1#{'&demo=1' if params[:demo]}&seller=#{@product.user_id}", :id=>"cart-trigger"
   #product
     = form_for(:cart, :url=>"#{ProjectConfig.value('site_url')}#{add_to_cart_path(@product)}", :remote=>true) do |f|
       = render 'template'
       /= link_to @widget.title, "#inline-content", :class=>"colorbox-inline", :title=>"Image Gallery for #{@product.name}"
-      #inline-content
-        - @product.images.each do |image|
-          = link_to image_tag(image.image(:thumbnail)), image.image.url, :class=>"colorbox-gallery"
       = f.submit 'Add to cart', :class=>"greenBtn"

@@ -18,13 +18,14 @@ module LiquidHelper
   end
 
   def build_input_type_for(content)
-    #    str = case content.input_type
-    #    when 'select'
-    #      select_tag "cart[#{content.name}]"
-    #    when 'select1'
-    #    else
-    text_field_tag "cart[#{content.name}]"
-    #    end
+    case content.name
+    when 'quantity'
+      text_field_tag "cart[quantity]"
+    when 'image_gallery'
+      render :partial=>'products/image_gallery'
+    when 'options'
+      render :partial=>'products/options'
+    end
   end
 
   def build_image_gallery

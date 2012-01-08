@@ -13,6 +13,8 @@ class Product < ActiveRecord::Base
   
   has_many :options, :class_name=>'ProductOption', :dependent=>:destroy
   has_many :images, :class_name=>'ProductImage', :dependent=>:destroy
+  has_many :order_items
+  has_many :orders, :through=>:order_items
 
   accepts_nested_attributes_for :widget, :allow_destroy=>true
   accepts_nested_attributes_for :options,  :reject_if => proc{|attrs| attrs.all?{|k,v| k=='_destroy' ? v : v.blank?} }, :allow_destroy=>true
@@ -61,11 +63,11 @@ class Product < ActiveRecord::Base
   private
 
   def initialize_widget_data
-    widget = self.create_widget(:content=>"Quantity {{ quantity }}")
+    widget = self.create_widget(:content=>"Quantity {{ quantity }}<br/>Image Gallery {{ image_gallery}}<br/>Options {{ options }}", :title=>"See the Product")
     self.state = "Widget needs updating"
-    widget.contents.create!(:name=>'quantity')
-    widget.contents.create!(:name=>'image_gallery')
-    widget.contents.create!(:name=>'options')
+    ProductWidgetContent::BUILT_IN.each do |k,v|
+      widget.contents.create!(:name=>k)
+    end
   end
 
   def create_code

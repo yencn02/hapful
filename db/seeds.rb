@@ -17,4 +17,8 @@ UserMerchantAccount::TYPES.each do |k,v|
 end
 PaymentType.create!(:name=>'Cash on Delivery', :activated=>true)
 
+ShippingOption::DEFAULT_VALUES.each do |val|
+  ShippingOption.create!(:name=>val)
+end
+
 
