@@ -12,7 +12,7 @@ class CartsController < ApplicationController
     else
       cart_contents[new_item_key]={
         :quantity=>params[:cart][:quantity].to_i,
-        :product_option_id=>params[:cart][:option_id],
+        :product_option_id=>params[:cart][:product_option_id],
         :product_id=>@product.id
       }
     end

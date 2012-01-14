@@ -71,7 +71,7 @@ class Order < ActiveRecord::Base
     arr = []
     items.each do |item|
       arr << {
-        :name     => item.product.name,
+        :name     => item.name,
         :number   => item.product.code,
         :quantity => item.quantity.to_i,
         :amount   => cents ? item.product.effective_price.to_cents : item.product.effective_price
@@ -83,7 +83,7 @@ class Order < ActiveRecord::Base
   def subtotal_amount
     amount = 0.0
     items.each do |item|
-      amount += ( item.product.effective_price * item.quantity.to_i)
+      amount += item.calculated_price
     end
     amount
   end
@@ -105,12 +105,13 @@ class Order < ActiveRecord::Base
   end
 
   def build_reference(string)
-   reference_number = string
+   self.reference_number = Time.now.to_i + id
   end
 
   private
   def set_states
-    
+    self.state ||= 'new'
+    self.payment_state ||= 'pending'
   end
 
   def check_shipping_method

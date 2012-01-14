@@ -7,5 +7,12 @@ class OrderAddress < ActiveRecord::Base
   validates :street_1, :presence=>true
 
   attr_accessor :diff_add
-  
+
+  def full_name
+    "#{first_name} #{middle_name} #{last_name}"
+  end
+
+  def complete_address
+    ""
+  end
 end

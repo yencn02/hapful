@@ -1,6 +1,6 @@
 %h3
-  Order No.
-  = @order.id
+  Order Reference Number
+  = @order.reference_number
 
 %table
   %tr
@@ -25,6 +25,6 @@
   - @order.items.each do |item|
     %tr
       %td
-        = item.product.name
-      %td= item.product_option_value
+        = item.name
+      %td= item.description
       %td= item.quantity

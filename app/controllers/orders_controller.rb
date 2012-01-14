@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_filter :authenticate_user!, :only=>[:index]
+  before_filter :authenticate_user!, :only=>[:index, :change_state]
   before_filter :initialize_cart_and_seller, :only=>[:new, :create]
   
   def index
@@ -44,6 +44,16 @@ class OrdersController < ApplicationController
     @order = Order.find(session[:active_order])
     @order.mark_as_for_delivery!
     session[:active_order] = nil
+  end
+
+  def change_state
+    @order = Order.find(params[:id])
+    if Order::STATES.include?(params[:state])
+      if @order.send("mark_as_#{params[:state]}!".to_sym)
+        redirect_to [@order], :notice=>"Order state successfully changed."
+      end
+    end
+    
   end
 
   private

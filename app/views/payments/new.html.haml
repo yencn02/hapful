@@ -1,3 +1,44 @@
+%h4 REVIEW YOUR ORDER
+%h5 Order Details
+%strong
+  Payable to
+  = @order.seller.email
+%table.zebra
+  %thead
+    %tr
+      %th Product
+      %th Price
+      %th Quantity
+      %th Amount
+  - @order.items.each do |item|
+    %tr
+      %td= "#{item.name} #{item.description.nil? ? '' : '('+item.description+')' }"
+      %td= item.product.effective_price
+      %td= item.quantity
+      %td= item.calculated_price
+  %tr
+    %td{:colspan=>3}
+      %strong.right TOTAL
+    %td
+      %strong= @order.subtotal_amount
+%h5 Billing Address
+%table
+  %tr
+    %td Name
+    %td= @billing.full_name
+  %tr
+    %td Address
+    %td= @billing.complete_address
+%h5 Shipping Address
+%table
+  %tr
+    %td Name
+    %td= @shipping.full_name
+  %tr
+    %td Address
+    %td= @shipping.complete_address
+
+%hr
 Pay Via
 = form_for :payment, :url=>do_payment_checkout_path do |f|
   - @order.seller.payment_types.each do |payment_type|
@@ -5,14 +46,3 @@ Pay Via
     = payment_type.name
     %br
   = submit_tag 'Submit', :class=>'greenBtn'
-  /
-  /%p
-  /  = f.radio_button :method, "cc", :value=>true
-  /  Pay Using Credit Card
-  /  %table
-  /    %tr
-  /      %td= f.text_field :credit_card_number
-  /  = f.submit "Pay Now", :class=>"greenBtn"
-  /%p
-  /  = f.radio_button :method, "pp"
-  /  = link_to image_tag('paypal_express.gif'), paypal_express_checkout_path

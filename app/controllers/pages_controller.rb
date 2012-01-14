@@ -10,4 +10,8 @@ class PagesController < ApplicationController
     @most_viewed = Product.most_viewed
   end
 
+  def search
+    
+  end
+
 end

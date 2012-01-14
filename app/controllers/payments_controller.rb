@@ -2,6 +2,8 @@ class PaymentsController < ApplicationController
 
   def new
     @order = Order.find(session[:active_order])
+    @billing = @order.billing_address
+    @shipping = @order.different_address? ? @order.shipping_address : @billing
   end
   
   def create

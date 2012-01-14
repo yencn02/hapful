@@ -7,11 +7,17 @@
       = submit_tag "Search", :class=>'greenBtn'
       = link_to 'Advanced Search', '/'
 
-.quarter
+#categories.quarter
   %h5 Categories
-  - Category.all.each do |category|
-    = category.name
-    %br
+  %ul
+    - Category.roots.each do |category|
+      %li
+        = link_to_function category.name, "$(this).parent().next('.sub').toggle()"
+      .sub{:style=>"display: none"}
+        - category.children.each do |child|
+          = link_to_function child.name, ''
+          %br
+
 .thirds
   .ui-tabs
     %ul

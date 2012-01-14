@@ -19,6 +19,6 @@
       %td{:style=>'font-size: 80%'}
         = link_to "View Details", order
         \|
-        = link_to "Mark Completed"
+        = link_to "Mark Completed", change_state_order_url(order, :state=>'complete')
         \|
         = link_to "Cancel"

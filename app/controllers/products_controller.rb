@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
   def demo
     render :layout=>'frame'
   end
+  
 
   private
 
