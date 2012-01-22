@@ -54,7 +54,7 @@ class Order < ActiveRecord::Base
   def set_product_quantities
     items.each do |item|
       deductable_object = item.product_option_id.nil? ? item.product : item.product_option
-      deductable_object.quantity -= item.quantity
+      deductable_object.ordered_quantity += item.quantity
       deductable_object.save(false)
     end
   end

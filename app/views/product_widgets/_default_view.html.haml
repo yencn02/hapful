@@ -1,0 +1,24 @@
+.half
+  = image_tag @product.images.first.image(:medium)
+  #inline-content{:style=>"width: 100%"}
+    %div{:style=>"overflow: auto; height: 100px;"}
+      - @product.images.each do |image|
+        = link_to image_tag("#{ProjectConfig.value('site_url')}#{image.image(:thumbnail)}"), "#{ProjectConfig.value('site_url')}#{image.image.url}", :class=>"colorbox-gallery"
+.half
+  %table.zebra
+    %tr
+      %td Price
+      %td
+        - if @product.on_discount?
+          %strong.strikethrough= number_to_currency(@product.price)
+          %strong{:style=>"font-size: 14px"}= number_to_currency(@product.discounted_price)
+        - else
+          %strong{:style=>"font-size: 14px"}= number_to_currency(@product.price)
+    %tr
+      %td{:colspan=>2}
+        %strong Quantity
+        = text_field_tag "cart[quantity]", 1, :size=>5
+        .right
+          = submit_tag "Add to Cart", :class=>"greenBtn"
+  = raw @product.description
+.clear

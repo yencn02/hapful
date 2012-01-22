@@ -19,6 +19,7 @@
   padding:5px 13px;
   text-decoration:none;
   text-shadow:1px 1px 0px #528009;
+  cursor: pointer;
 }.greenBtn:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77a809), color-stop(1, #89c403) );
   background:-moz-linear-gradient( center top, #77a809 5%, #89c403 100% );
@@ -50,6 +51,7 @@
   padding:5px 13px;
   text-decoration:none;
   text-shadow:1px 1px 0px #810e05;
+  cursor: pointer;
 }.redBtn:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537) );
   background:-moz-linear-gradient( center top, #c62d1f 5%, #f24537 100% );
@@ -77,6 +79,7 @@
   padding:6px 24px;
   text-decoration:none;
   text-shadow:1px 1px 0px #ffffff;
+  cursor: pointer;
 }.whiteBtn:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff) );
   background:-moz-linear-gradient( center top, #f6f6f6 5%, #ffffff 100% );

@@ -1,4 +1,16 @@
 @import 'blueprint'
+@import "compass/css3/box-shadow"
+
+=gradient($from, $to)
+  background-color: $from
+  background-image: -moz-linear-gradient($from, $to)
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to))
+  background-image: -webkit-linear-gradient($from, $to)
+  background-image: -o-linear-gradient($from, $to)
+
+=border_radius($bl, $br, $tl, $tr)
+  border-radius: $bl $br $tl $tr
+  -moz-border-radius: $bl $br $tl $tr
 
 body
   :font-family "Helvetica Neue", Arial, Helvetica, sans-serif
@@ -9,12 +21,16 @@ a
 a:hover
   :color #008afd
 
+
 #form_errors
+  +border_radius(5px, 5px, 10px, 10px)
   :border 1px solid red
   :color black
   h4
-    :background  #A0000F
+    +border_radius(5px, 5px, 0, 0)
+    :background  #96080a
     :color white
+    :padding 5px
     :margin-bottom 1em
 
 #error_explanation
@@ -22,18 +38,22 @@ a:hover
   :color black
   h2
     :font-size 14px
-    :background  #A0000F
+    :background  #96080a
     :color white
     :margin-bottom 1em
 
 .field_with_errors
   input
     :background pink
-  
+
+.nav_link
+  a
+    :color #777
+    :font-size 80%
 
 #top_navigation
   :height 30px
-  :background url('images/footer.gif')
+  +gradient(#96080a, #81080a)
   :border-radius 0 0 1em 1em
   :-moz-border-radius 0 0 1em 1em
   :font-size 14px
@@ -51,7 +71,7 @@ a:hover
   +prepend-top(20px)
 
 #header
-  :background #A0000F
+  :background #96080a
   :border-radius 0.5em 4em 0 0
   :-moz-border-radius 0.5em 4em 0 0
 
@@ -60,7 +80,7 @@ a:hover
   +prepend(1)
   +append(1)
   :min-height 4em
-  :background #A0000F
+  :background #96080a
   :border-radius 0 0 0.5em 2em
   :-moz-border-radius 0 0 0.5em 2em
 
@@ -69,6 +89,7 @@ a:hover
     +prepend(0.5)
     +append(0.5)
     :background #FFF
+    +single-box-shadow(#81080a, 0, 0, 5px, 5px, false)
 
   #footer
     :background #000
@@ -165,4 +186,28 @@ a:hover
     :background #FFF
 
   
+
+fieldset.form
+  :border 1px solid #777
+  :padding 5px
+  +gradient(#FFF, #EEE)
+  legend
+    :margin-left 10px
+    :padding 10px
+    +border_radius(5px, 5px, 5px, 5px)
+    :border 1px solid black
+    +gradient(#96080a, #81080a)
+    :color #FFF
+
+fieldset.blue
+  margin: 0 0 22px 0
+  border: 1px solid #095D92
+  padding: 12px 17px
+  background-color: #DFF3FF
   
+  legend
+    font-size: 1.1em
+    background-color: #095D92
+    color: #FFFFFF
+    font-weight: bold
+    padding: 4px 8px

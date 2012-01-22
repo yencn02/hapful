@@ -1,9 +1,6 @@
 class Product < ActiveRecord::Base
 
-  STATES = {
-    
-  }
-  
+  STATES = %w(new saved expiring published)
   extend FriendlyId
   friendly_id :name, :use => :slugged
   
@@ -25,6 +22,8 @@ class Product < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
+  delegate :name, :to=>:category, :allow_nil=>true, :prefix=>true
+  
   alias_method :seller, :user
 
   scope :top_rated, limit(10).order("rating DESC")
@@ -59,7 +58,7 @@ class Product < ActiveRecord::Base
   def products_related_by_category(limit = 5)
     category.products.find(:all, :limit=>limit, :conditions=>["id != ?", self.id])
   end
-  
+
   private
 
   def initialize_widget_data
@@ -79,7 +78,4 @@ class Product < ActiveRecord::Base
     errors.add_to_base "Product must have at least 1 image" if self.images.blank?
   end
 
-  
-
-  
 end

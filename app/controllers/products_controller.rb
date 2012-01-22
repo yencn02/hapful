@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
 
   before_filter :get_product, :except=>[:index, :new, :create]
   before_filter :user_access_restriction, :except=>[:index, :show, :new, :create]
+  before_filter :merge_state_params, :only=>[:create, :update]
 
   def index
     if current_user
@@ -82,5 +83,13 @@ class ProductsController < ApplicationController
       redirect_to request.referrer, :notice=>"You don't have access here"
     end
   end
-  
+
+  def merge_state_params
+    state = if params[:commit].eql?("Save as Draft")
+      {:state => "saved" }
+    else
+      {:state => "published" }
+    end
+    params[:product].merge!(state)
+  end
 end

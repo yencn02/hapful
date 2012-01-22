@@ -17,6 +17,18 @@
         %tr
           %td Street
           %td= billing.text_field :street_1
+        %tr
+          %td City
+          %td= billing.text_field :city
+        %tr
+          %td State
+          %td= billing.text_field :state
+        %tr
+          %td Postal Code
+          %td= billing.text_field :postal_code
+        %tr
+          %td Country
+          %td= billing.text_field :country
     - dif_ship = !f.object.shipping_address.nil?
     %p
       = f.check_box :different_address, |
@@ -34,8 +46,19 @@
           %tr
             %td Street
             %td= shipping.text_field :street_1
+          %tr
+            %td City
+            %td= shipping.text_field :city
+          %tr
+            %td State
+            %td= shipping.text_field :state
+          %tr
+            %td Postal Code
+            %td= shipping.text_field :postal_code
+          %tr
+            %td Country
+            %td= shipping.text_field :country
         = shipping.hidden_field :diff_add, :value=>f.object.different_address?
-    = f.submit "Place Order", :class=>"greenBtn"
   .half
     %h4 Review your order
     = render :partial=>'carts/cart_per_seller', :locals=>{:cart=>@cart_for_seller, :seller=>@seller}
@@ -44,10 +67,13 @@
       - @order.seller.shipping_methods.each do |shipping_method|
         %tr
           %td
-            = f.radio_button :shipping_method_id, shipping_method.id
+            = f.radio_button :shipping_method_id, shipping_method.id, |
+              :checked=>shipping_method.amount.nil? || shipping_method.amount.eql?(0)
             = shipping_method.name
             (
             = shipping_method.humanized_amount
             )
-.clear
-  
+  .clear
+  .right
+    = f.submit "Place Order", :class=>"greenBtn"
+  .clear

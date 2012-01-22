@@ -39,10 +39,10 @@
     %td= @shipping.complete_address
 
 %hr
-Pay Via
+%h4 Payment Method
 = form_for :payment, :url=>do_payment_checkout_path do |f|
   - @order.seller.payment_types.each do |payment_type|
-    = f.radio_button :method, payment_type.name
+    = f.radio_button :method, payment_type.name, :checked=>payment_type.checks_for_merchant_account?
     = payment_type.name
     %br
   = submit_tag 'Submit', :class=>'greenBtn'

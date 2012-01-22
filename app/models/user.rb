@@ -13,13 +13,12 @@ class User < ActiveRecord::Base
   end
   has_many :payment_methods,    :class_name=>'UserPaymentMethod', :dependent=>:destroy
   has_many :payment_types,    :through=>:payment_methods, :source=>:payment_type
-  has_many :shipping_methods, :class_name=>'UserShippingMethod', :dependent=>:destroy do
+  has_many :shipping_methods, :class_name=>'UserShippingMethod', :order=>"amount", :dependent=>:destroy do
     def for_option(option)
       find(:first, :conditions=>{:shipping_option_id=>option.id}) || UserShippingMethod.new
     end
   end
   has_many :shipping_options, :through=>:shipping_methods, :source=>:shipping_option
-
   validates :username, :presence=>true, :uniqueness=>true
 
   accepts_nested_attributes_for :merchant_accounts, :allow_destroy=>true

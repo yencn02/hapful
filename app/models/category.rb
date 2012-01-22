@@ -9,5 +9,9 @@ class Category < ActiveRecord::Base
 
   #used roots instead of parents or ancestors since both are used by rails
   scope :roots, where({:parent_category_id=>nil})
+
+  def thatwayhat_integratable?
+    name == 'Hat'
+  end
   
 end

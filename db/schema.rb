@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120105090639) do
+ActiveRecord::Schema.define(:version => 20120122052734) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20120105090639) do
     t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ordered_quantity", :default => 0
   end
 
   add_index "product_options", ["product_id"], :name => "index_product_options_on_product_id"
@@ -177,8 +178,8 @@ ActiveRecord::Schema.define(:version => 20120105090639) do
     t.boolean  "on_discount"
     t.float    "price"
     t.float    "discounted_price"
-    t.float    "rating",           :default => 0.0
-    t.float    "views",            :default => 0.0
+    t.float    "rating",            :default => 0.0
+    t.float    "views",             :default => 0.0
     t.integer  "category_id"
     t.string   "name"
     t.string   "slug"
@@ -188,6 +189,8 @@ ActiveRecord::Schema.define(:version => 20120105090639) do
     t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ordered_quantity",  :default => 0
+    t.boolean  "customized_widget"
   end
 
   add_index "products", ["category_id"], :name => "index_products_on_category_id"

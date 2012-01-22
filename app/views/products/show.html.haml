@@ -23,13 +23,28 @@
         %tr
           %td Discount Price
           %td= @product.discounted_price
+        %tr
+          %td Category
+          %td
+            = @product.category_name
+            - if @product.category.thatwayhat_integratable?
+              = link_to "Integrate to Thatwayhat!", '', :class=>"greenBtn"
+        %tr
+          %td Tags
+          %td= @product.tag_list.join(", ")
       %h5 Images
       - @product.images.each do |image|
         = image_tag(image.image(:thumbnail))
     #logistics
       %h5
-        Remaining Quantity:
+        Quantity:
         = @product.quantity
+        \|
+        Ordered:
+        = @product.ordered_quantity
+        \|
+        Total Left
+        = @product.quantity - @product.ordered_quantity
       %table
         %thead
           %tr

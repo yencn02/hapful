@@ -5,6 +5,6 @@ class PaymentType < ActiveRecord::Base
   scope :activated, where(:activated=>true)
 
   def checks_for_merchant_account?
-    !!requisite_merchant_account.blank?
+    !requisite_merchant_account.blank?
   end
 end
