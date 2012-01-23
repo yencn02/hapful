@@ -1,6 +1,6 @@
 = nested_form_for @product, :html=>{:class=>"", :multipart=>true} do |f|
   .nav_link
-    = link_to "<< Back to Dashboard"
+    = link_to "<< Back to Dashboard", '/my-dashboard'
   %br
   = render :partial=>'shared/form_errors', :locals=>{:object=>@product}
   %h2
@@ -41,6 +41,11 @@
         %td{:style=>"width: 30%"}
           %strong Discounted Price
         %td{:colspan=>3}= f.text_field :discounted_price, :size=>'8'
+      %tr
+        %td{:colspan=>4}
+          %strong Description
+          %br
+          = f.text_area :description, :cols=>'95%', :rows=>'5'
   %br
   .halfcolright
     %fieldset.form{:style=>"min-height: 150px"}

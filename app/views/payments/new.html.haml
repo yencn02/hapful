@@ -13,29 +13,29 @@
   - @order.items.each do |item|
     %tr
       %td= "#{item.name} #{item.description.nil? ? '' : '('+item.description+')' }"
-      %td= item.product.effective_price
+      %td= number_to_currency(item.product.effective_price)
       %td= item.quantity
-      %td= item.calculated_price
+      %td= number_to_currency(item.calculated_price)
   %tr
     %td{:colspan=>3}
       %strong.right TOTAL
     %td
-      %strong= @order.subtotal_amount
+      %strong= number_to_currency(@order.subtotal_amount)
 %h5 Billing Address
 %table
   %tr
-    %td Name
+    %td{:style=>"width: 20%"} Name
     %td= @billing.full_name
   %tr
-    %td Address
+    %td{:style=>"width: 20%"} Address
     %td= @billing.complete_address
 %h5 Shipping Address
 %table
   %tr
-    %td Name
+    %td{:style=>"width: 20%"} Name
     %td= @shipping.full_name
   %tr
-    %td Address
+    %td{:style=>"width: 20%"} Address
     %td= @shipping.complete_address
 
 %hr

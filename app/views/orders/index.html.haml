@@ -1,1 +1,4 @@
+.nav_link
+  = link_to "<< Back to Dashboard", '/my-dashboard'
+%br
 = render :partial=>"orders/table", :locals=>{:orders=>@orders}

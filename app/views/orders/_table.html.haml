@@ -21,4 +21,4 @@
         \|
         = link_to "Mark Completed", change_state_order_url(order, :state=>'complete')
         \|
-        = link_to "Cancel"
+        = link_to "Cancel", change_state_order_url(order, :state=>'canceled_by_seller')

@@ -1,14 +1,9 @@
 Hapful::Application.routes.draw do
   
-
   get "user_payment_methods/index"
-
   get "user_payment_methods/new"
-
   get "user_payment_methods/edit"
-
   get "paypal_accounts/index"
-
   get "paypal_accounts/edit"
 
   namespace :admin do 
@@ -59,6 +54,7 @@ Hapful::Application.routes.draw do
   match '/my-dashboard' => 'users#dashboard', :as=>:user_dashboard
 
   match '/add-to-cart/:product_slug' =>'carts#add',   :as=>:add_to_cart
+  match '/cart/cq/:product_slug/:change' =>'carts#change_quantity', :as=>:change_quantity
   match '/my-cart'                    =>'carts#show', :as=>:show_cart
 
   match  '/checkout/payment_state/:state'=> 'payments#set_state',               :as=>:set_payment_state
