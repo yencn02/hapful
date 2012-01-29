@@ -5,8 +5,11 @@ class OrderItem < ActiveRecord::Base
 
   delegate :description, :to=>:product_option, :allow_nil=>true, :prefix=>false
   delegate :name, :to=>:product, :allow_nil=>true, :prefix=>false
+  delegate :additional_cost, :to=>:product_option, :allow_nil=>true, :prefix=>false
 
   def calculated_price
-    product.effective_price.to_f * quantity.to_f
+    calc_amount = product.effective_price.to_f
+    calc_amount += product_option.additional_cost unless product_option.nil?
+    calc_amount * quantity.to_f
   end
 end

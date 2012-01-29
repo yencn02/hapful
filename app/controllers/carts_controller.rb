@@ -7,16 +7,22 @@ class CartsController < ApplicationController
     cart_sellers << @product.user_id
     cart_sellers.uniq!
     new_item_key = "p_#{@product.id}_v_#{params[:cart][:product_option_id]}"
+
+    ## NOTE: product and option is already existing
     if cart_contents.keys.include?(new_item_key)
+
+      ## Buyer clicks the up and down arrow on the orders table
       cart_contents[new_item_key][:quantity] = if params[:change].eql?('down')
         cart_contents[new_item_key][:quantity].to_i - params[:cart][:quantity].to_i
       else
         params[:cart][:quantity].to_i + cart_contents[new_item_key][:quantity].to_i
       end
-       
+
+    ## NOTE: product and option net yet on cart
     else
+      initial_quantity = params[:cart][:quantity] || 1
       cart_contents[new_item_key]={
-        :quantity=>params[:cart][:quantity].to_i,
+        :quantity=>initial_quantity.to_i,
         :product_option_id=>params[:cart][:product_option_id],
         :product_id=>@product.id
       }

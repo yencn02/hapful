@@ -59,11 +59,27 @@ class Product < ActiveRecord::Base
     category.products.find(:all, :limit=>limit, :conditions=>["id != ?", self.id])
   end
 
+  def self.paginated_search(opts, page, per_page)
+    @opts = opts
+    self.paginate_by_sql(search_sql, :page=>page, :per_page=>per_page)
+  end
+
+  def self.paginated_search_count(opts)
+    @opts = opts
+    self.count_by_sql(search_sql)
+  end
+
+  def self.search_sql
+    sql_statement = "SELECT * FROM #{Product.table_name} WHERE "
+    sql_statement << "name LIKE ? " if @opts[:category]
+    sql_statement << "AND category_id = ?" if @opts[:category]
+    [sql_statement, "%#{@opts[:keyword]}%", @opts[:category]]
+  end
   private
 
   def initialize_widget_data
     widget = self.create_widget(:content=>"Quantity {{ quantity }}<br/>Image Gallery {{ image_gallery}}<br/>Options {{ options }}", :title=>"See the Product")
-    self.state = "Widget needs updating"
+    self.state = "Widget needs updating" if self.customized_widget?
     ProductWidgetContent::BUILT_IN.each do |k,v|
       widget.contents.create!(:name=>k)
     end

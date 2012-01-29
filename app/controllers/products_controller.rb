@@ -33,6 +33,7 @@ class ProductsController < ApplicationController
     @product = current_user.products.new
     @product.images.build
     @product.options.build
+    @product.build_widget
   end
 
   def edit

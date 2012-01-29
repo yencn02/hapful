@@ -13,7 +13,10 @@
   - @order.items.each do |item|
     %tr
       %td= "#{item.name} #{item.description.nil? ? '' : '('+item.description+')' }"
-      %td= number_to_currency(item.product.effective_price)
+      %td
+        = number_to_currency(item.product.effective_price)
+        - if item.product_option
+          = "(+#{number_to_currency(item.additional_cost)})"
       %td= item.quantity
       %td= number_to_currency(item.calculated_price)
   %tr

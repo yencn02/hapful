@@ -11,8 +11,14 @@
   - total_amount = 0.0
   - cart.each do |item|
     %tr
-      %td= item[:product].name
-      %td= number_to_currency(item[:product].effective_price)
+      %td
+        = item[:product].name
+        - if !item[:product_option_id].blank?
+          = "(#{item[:variant].description})"
+      %td
+        = number_to_currency(item[:product].effective_price)
+        - if !item[:product_option_id].blank?
+          = "(+#{number_to_currency(item[:variant].additional_cost)})"
       %td
         %span{:pv=>item[:product_option_id]}
           - ret_url = params[:controller]=='orders' ? checkout_path(seller.username) : '/my-cart'
@@ -25,7 +31,7 @@
             "change_quantity('#{add_to_cart_path(item[:product].slug)}', '#{ret_url}', '#{item[:product_option_id]}', 'down')", |
             {:class=>"greenCharBtn"}
       %td
-        - item_amount = item[:quantity] * item[:product].effective_price
+        - item_amount = item[:quantity] * (item[:product].effective_price + item[:variant].additional_cost )
         - total_amount += item_amount
         = number_to_currency(item_amount)
   %tr

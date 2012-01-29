@@ -65,12 +65,16 @@ Hapful::Application.routes.draw do
   get   '/checkout/:merchant'         => 'orders#new',                        :as=>:checkout
   post  '/checkout/:merchant'         => 'orders#create',                     :as=>:build_order
 
+  get '/track/:reference_number'    =>'pages#order_tracking', :as=>:order_tracking
+  post '/track/:reference_number'    =>'pages#view_order_tracking', :as=>:view_order_tracking
+  
   match '/market' => 'pages#market', :as=>:market
   match '/search' => 'pages#search', :as=>:search
   match '/complete' => 'orders#completed', :as=>:completed_order
  
   match '/paypal-express' => 'payments#paypal_express', :as=>:paypal_express_checkout
   match '/p/:id' => 'products#show'
+  match '/s/:seller'  =>'pages#seller', :as=>:seller_page
 
   #  scope :protocol => 'https://', :constraints => { :protocol => 'https://' } do
   #    match '/paypal-express' => 'payments#paypal_express', :as=>:paypal_express_checkout

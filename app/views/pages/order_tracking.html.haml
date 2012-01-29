@@ -1,0 +1,12 @@
+%h3 View the status of your order here
+- form_tag view_order_tracking_path do
+  %table.zebra
+    %tr
+      %td Email
+      %td= email_field_tag "track[email]"
+    %tr
+      %td Reference Number
+      %td= text_field_tag "track[reference_number]", params[:reference_number]
+  .right
+    = submit_tag "View Status", :class=>"greenBtn"
+  .clear

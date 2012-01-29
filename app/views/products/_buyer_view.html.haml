@@ -1,11 +1,10 @@
 = form_for :cart, :url=>add_to_cart_path(@product) do |f|
-
-  - if @product.customized_widget?
-    = raw compile_template
-    = f.submit "Add to Cart", :class=>'greenBtn'
-  - else
-    = render 'product_widgets/default_view'
-
+  = render 'product_widgets/default_view'
+  /- if @product.customized_widget?
+  /  = raw compile_template
+  /  = f.submit "Add to Cart", :class=>'greenBtn'
+  /- else
+  /  = render 'product_widgets/default_view'
 %hr{:color=>"#cfcfcf"}
 %h4 Other products from seller
 - @product.products_related_by_user.each do |product|

@@ -4,5 +4,8 @@
   Your reference number is
   %strong= @order.reference_number
 
-You may track the status of your order here
+%p
+  You may track the status of your order here
   %strong= @order.reference_number
+
+= link_to "See other products", '/market'

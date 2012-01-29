@@ -1,4 +1,8 @@
 = form_for :cart, :url=>"#{ProjectConfig.value('site_url')}#{add_to_cart_path(@product)}" do |f|
-  = raw compile_template
-  - unless @demo
-    = f.submit "Add to Cart", :class=>"greenBtn"
+  - if @product.customized_widget?
+    = raw compile_template
+    - unless @demo
+      = f.submit "Add to Cart", :class=>"greenBtn"
+  - else
+    = render 'product_widgets/default_view'
+  

@@ -71,9 +71,14 @@
               %td{:colspan=>2}= option_form.text_field :description
             %tr
               %td
+                %strong Additional Cost
+              %td{:colspan=>2}= option_form.text_field :additional_cost, :size=>8
+            %tr
+              %td
                 %strong Quantity
               %td= option_form.text_field :quantity, :size=>8
               %td= option_form.link_to_remove image_tag("close.png")
+            
       .clear
       %strong= f.link_to_add "Add Variant", :options
   .clear

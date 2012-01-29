@@ -70,11 +70,12 @@ class Order < ActiveRecord::Base
   def arrayed_items(cents = false)
     arr = []
     items.each do |item|
+      calc_amount = item.product.effective_price + item.additional_cost.to_f
       arr << {
         :name     => item.name,
         :number   => item.product.code,
         :quantity => item.quantity.to_i,
-        :amount   => cents ? item.product.effective_price.to_cents : item.product.effective_price
+        :amount   => cents ? calc_amount.to_cents : calc_amount
       }
     end
     arr

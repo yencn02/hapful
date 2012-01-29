@@ -1,5 +1,4 @@
-%table
-  - if @product.options.count > 0
-    = select_tag "cart[product_option_id]", |
-      options_for_select(@product.options.collect{|option| [option.description, option.id]}), |
-      :include_blank=>true
+- if @product.options.count > 0
+  = select_tag "cart[product_option_id]", |
+    options_for_select(@product.options.collect{|option| [option.description, option.id]}), |
+    :include_blank=>true

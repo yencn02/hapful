@@ -6,7 +6,7 @@ class ProjectConfig < ActiveRecord::Base
 
 
   def self.value(key)
-    ProjectConfig.find_by_key(key).value rescue ""
+    ProjectConfig.find_by_key(key).value rescue nil
   end
 
   

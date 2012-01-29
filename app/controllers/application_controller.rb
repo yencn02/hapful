@@ -24,7 +24,8 @@ class ApplicationController < ActionController::Base
       @cart[user] = []
       cart_contents.each do |k,v|
         product = Product.find(v[:product_id]) rescue next
-        @cart[user] << v.merge({:product=>product})
+        variant = product.options.find(v[:product_option_id]) rescue ProductOption.new(:additional_cost=>0.0)
+        @cart[user] << v.merge({:product=>product, :variant=>variant})
       end
     end
   end
