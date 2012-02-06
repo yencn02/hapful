@@ -25,16 +25,6 @@ Hapful::Application.configure do
 
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test
-    ::PAYPAL_CREDENTIALS = {
-      :login     => 'hapful_1323917009_biz_api1.gmail.com',
-      :password  => '1323917047',
-      :signature => 'AFv7Jujecrsh1LTBIJMI8DBQtEQQAZ247BlTdAb7gpLHUUM6khKl.BFj'
-    }
-    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      :login     => 'hapful_1323917009_biz_api1.gmail.com',
-      :password  => '1323917047',
-      :signature => 'AFv7Jujecrsh1LTBIJMI8DBQtEQQAZ247BlTdAb7gpLHUUM6khKl.BFj'
-    )
   end
   
   
