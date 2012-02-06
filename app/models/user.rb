@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
+  ## CALLBACKS
+
+  after_create :send_welcome_email
+
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
 
   has_many :products, :dependent=>:destroy
@@ -42,5 +46,10 @@ class User < ActiveRecord::Base
   def merch_account_for_payment_type(payment_type)
     merchant_accounts.find(:first, :conditions=>{:merchant_type=>payment_type.requisite_merchant_account})
   end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
+
   
 end

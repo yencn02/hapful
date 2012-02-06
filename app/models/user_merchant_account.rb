@@ -8,5 +8,6 @@ class UserMerchantAccount < ActiveRecord::Base
   belongs_to :user
 
   validates_uniqueness_of :merchant_type, :scope=>:user_id
+  validates_presence_of :email
 
 end

@@ -1,10 +1,11 @@
 class Order < ActiveRecord::Base
 
   after_initialize :initalize_billing_address, :set_states
+  after_create :send_new_order_email_to_seller
   
   belongs_to :seller, :class_name=>"User", :foreign_key=>'seller_id'
   belongs_to :payment_type
-  belongs_to :shipping_method, :foreign_key=>'shipping_method_id', :class_name=>'UserShippingMethod'
+  belongs_to :shipping_method, :foreign_key=>'shipping_method_id', :class_name=>'ProductShippingOption'
 
   before_save :save_total_amount
   before_create :set_product_quantities
@@ -106,7 +107,15 @@ class Order < ActiveRecord::Base
   end
 
   def build_reference(string)
-   self.reference_number = Time.now.to_i + id
+    self.reference_number = Time.now.to_i + id
+  end
+
+  def available_shipping_options_for(cart)
+    cart.collect{|a| a[:product]}.collect{|a| a.shipping_options}.flatten.sort(&:amount).uniq
+  end
+
+  def accepted_payment_types
+    products.collect(&:payment_types).flatten.uniq
   end
 
   private
@@ -127,6 +136,10 @@ class Order < ActiveRecord::Base
 
   def save_total_amount
     self.total_price = total_amount
+  end
+
+  def send_new_order_email_to_seller
+    OrderMailer.new_order_email(self).deliver
   end
   
 end

@@ -13,7 +13,7 @@
   %ul
     - Category.roots.each do |category|
       %li
-        = link_to_function category.name, "$(this).parent().next('.sub').toggle()"
+        = link_to category.name, by_category_path(category)
       .sub{:style=>"display: none"}
         - category.children.each do |child|
           = link_to_function child.name, ''

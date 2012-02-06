@@ -1,0 +1,21 @@
+#logistics
+  %h5
+    Quantity:
+    = @product.quantity
+    \|
+    Ordered:
+    = @product.ordered_quantity
+    \|
+    Total Left
+    = @product.quantity - @product.ordered_quantity
+  %table
+    %thead
+      %tr
+        %th Order
+        %th Order Status
+        %th Quantity
+      - @product.order_items.each do |item|
+        %tr
+          %td= item.order.reference_number
+          %td= item.order.state.humanize
+          %td= item.quantity

@@ -1,0 +1,36 @@
+.halfcolright
+  %fieldset.form{:style=>"min-height: 150px"}
+    %legend
+      %strong IMAGES
+    = f.fields_for :images do |image_form|
+      - if image_form.object.new_record?
+        = image_form.file_field :image
+      - else
+        = image_tag image_form.object.image(:thumbnail)
+      = image_form.link_to_remove image_tag("close.png")
+    %strong= f.link_to_add "Add Image", :images
+.half
+  %fieldset.form{:style=>"min-height: 150px; width: 100%"}
+    %legend
+      %strong VARIANTS
+    = f.fields_for :options do |option_form|
+      %div{:style=>"border: 1px solid #095D92; background: #FFF; margin-bottom: 5px"}
+        %table
+          %tr
+            %td
+              %strong Description
+            %td{:colspan=>2}= option_form.text_field :description, :size=>20
+          %tr
+            %td
+              %strong Additional Cost
+            %td{:colspan=>2}= option_form.text_field :additional_cost, :size=>8
+          %tr
+            %td
+              %strong Quantity
+            %td= option_form.text_field :quantity, :size=>8
+            %td= option_form.link_to_remove image_tag("close.png")
+
+    .clear
+    %strong= f.link_to_add "Add Variant", :options
+.clear
+%br

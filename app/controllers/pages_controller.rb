@@ -29,4 +29,23 @@ class PagesController < ApplicationController
     
   end
 
+  def by_category
+    @category = Category.find(params[:id])
+    @products = @category.products.paginate(:page=>params[:page], :per_page=>20)
+  end
+
+  def update_merch
+    @user = current_user
+    params[:user][:merchant_accounts_attributes].values.each do |values|
+      merch = @user.merchant_accounts.for_type(values[:merchant_type]) || @user.merchant_accounts.build
+      merch.attributes = values.delete_if{|k,v| k.to_s=='_destroy'}
+    end
+    msg = if @user.save
+      {:notice=>"Thank you."}
+    else
+      {:error=>"#{@user.errors.full_messages.join(",")}"}
+    end
+    redirect_to(user_dashboard_path, msg)
+  end
+
 end

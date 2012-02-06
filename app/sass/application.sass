@@ -17,21 +17,31 @@ body
 
 a
   :text-decoration none
-  :color #444444
+  :color #444433
 a:hover
   :color #008afd
 
 
 #form_errors
   +border_radius(5px, 5px, 10px, 10px)
-  :border 1px solid red
-  :color black
+  :border 1px solid
+  :background #fbe3e4
+  :color #8a1f11
+  :font-weight bold
+  :margin-bottom 10px
   h4
     +border_radius(5px, 5px, 0, 0)
     :background  #96080a
     :color white
     :padding 5px
     :margin-bottom 1em
+  ul
+    :list-style none
+    :margin 5px
+    :padding-left 10px
+
+    li
+      :padding 2px
 
 #error_explanation
   :border 1px solid red
@@ -118,11 +128,13 @@ a:hover
   :background none repeat scroll 0 0 #E6EFC2
   :color #264409
   :border-color #C6D880
+  :font-weight bold
 
 #error-message
   :background none repeat scroll 0 0 #FBE3E4
   :color #8A1F11
   :border-color #FBC2C4
+  :font-weight bold
   
 .quarter
   +column(4)
@@ -211,3 +223,14 @@ fieldset.blue
     color: #FFFFFF
     font-weight: bold
     padding: 4px 8px
+
+.infobox
+  :color #00529B
+  :border 1px solid
+  :background #BDE5F8 url(../images/help.png) no-repeat 5px center
+  :padding 10px
+  :padding-left 30px
+  :font-weight bold
+
+.strong, .bold
+  :font-weight bold

@@ -41,8 +41,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_user.products.new(params[:product])
+    set_shipping_and_payment
     respond_to do |format|
-      if @product.save
+      if @product.save()
         format.html { redirect_to(@product, :notice => 'Product was successfully created.') }
       else
         format.html { render :action => "new" }
@@ -51,6 +52,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+    set_shipping_and_payment
     respond_to do |format|
       if @product.update_attributes(params[:product])
         format.html { redirect_to(@product, :notice => 'Product was successfully updated.') }
@@ -93,4 +95,10 @@ class ProductsController < ApplicationController
     end
     params[:product].merge!(state)
   end
+
+  def set_shipping_and_payment
+    @product.set_payment_options(params[:payopts])
+    @product.set_shipping_options(params[:shipopts])
+  end
+
 end

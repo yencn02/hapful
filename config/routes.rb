@@ -1,5 +1,5 @@
 Hapful::Application.routes.draw do
-  
+
   get "user_payment_methods/index"
   get "user_payment_methods/new"
   get "user_payment_methods/edit"
@@ -67,7 +67,9 @@ Hapful::Application.routes.draw do
 
   get '/track/:reference_number'    =>'pages#order_tracking', :as=>:order_tracking
   post '/track/:reference_number'    =>'pages#view_order_tracking', :as=>:view_order_tracking
-  
+
+  match '/update_merch' => 'pages#update_merch'
+  match '/c/:id' => 'pages#by_category', :as=>:by_category
   match '/market' => 'pages#market', :as=>:market
   match '/search' => 'pages#search', :as=>:search
   match '/complete' => 'orders#completed', :as=>:completed_order

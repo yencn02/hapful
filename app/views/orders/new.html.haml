@@ -64,16 +64,14 @@
     = render :partial=>'carts/cart_per_seller', :locals=>{:cart=>@cart_for_seller, :seller=>@seller}
     %h4 Select Shipping Method
     %table
-      - @order.seller.shipping_methods.each do |shipping_method|
+      - @order.available_shipping_options_for(@cart_for_seller).each_with_index do |shipping_option, i|
         %tr
           %td
-            = f.radio_button :shipping_method_id, shipping_method.id, |
-              :checked=>shipping_method.amount.nil? || shipping_method.amount.eql?(0)
-            = shipping_method.name
+            = f.radio_button :shipping_method_id, shipping_option.id, |
+              :checked=>i==0
+            = shipping_option.name
             (
-            = shipping_method.humanized_amount
+            = shipping_option.is_free? ? 'FREE' : number_to_currency(shipping_option.humanized_amount)
             )
-  .clear
-  .right
     = f.submit "Place Order", :class=>"greenBtn"
   .clear

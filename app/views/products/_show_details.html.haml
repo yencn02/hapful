@@ -1,0 +1,36 @@
+#details
+  %h4= link_to "Edit", [:edit, @product]
+  %table.zebra
+    %tr
+      %td Name
+      %td.strong= @product.name
+    %tr
+      %td Price
+      %td.strong= number_to_currency @product.price
+      %td Discount Price
+      %td.strong= number_to_currency @product.discounted_price
+    %tr
+      %td Category
+      %td.strong
+        = @product.category_name
+        /- if @product.category.thatwayhat_integratable?
+        /  = link_to "Integrate to Thatwayhat!", '', :class=>"greenBtn"
+      %td Tags
+      %td.strong= @product.tag_list.join(", ")
+    %tr
+      %td Embed Code
+      %td{:colspan=>3}
+        = text_area_tag :embed, @product.embed_code, |
+        :style=>'width: 95%; height: 50px', :id=>'embed-code'
+        %br
+        .infobox
+          Copy and Paste the code above to your blog post.
+    %tr
+      %td Shipping Options
+      %td.strong= @product.shipping_options.collect(&:name).join(", ")
+      %td Payment Options
+      %td.strong= @product.payment_options.collect(&:name).join(", ")
+
+  %h5 Images
+  - @product.images.each do |image|
+    = image_tag(image.image(:thumbnail))

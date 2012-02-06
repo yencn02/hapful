@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120122113024) do
+ActiveRecord::Schema.define(:version => 20120205180113) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(:version => 20120122113024) do
     t.integer  "parent_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   add_index "categories", ["parent_category_id"], :name => "index_categories_on_parent_category_id"
+  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "order_addresses", :force => true do |t|
     t.integer  "order_id"
@@ -150,6 +152,21 @@ ActiveRecord::Schema.define(:version => 20120122113024) do
 
   add_index "product_options", ["product_id"], :name => "index_product_options_on_product_id"
 
+  create_table "product_payment_options", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "payment_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "product_shipping_options", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "shipping_option_id"
+    t.float    "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "product_widget_contents", :force => true do |t|
     t.integer  "product_widget_id"
     t.integer  "product_option_id"
@@ -172,7 +189,7 @@ ActiveRecord::Schema.define(:version => 20120122113024) do
     t.datetime "updated_at"
   end
 
-  add_index "product_widgets", ["product_id"], :name => "index_product_widgets_on_product_id", :unique => true
+  add_index "product_widgets", ["product_id"], :name => "index_product_widgets_on_product_id"
 
   create_table "products", :force => true do |t|
     t.integer  "user_id"
@@ -192,6 +209,7 @@ ActiveRecord::Schema.define(:version => 20120122113024) do
     t.datetime "updated_at"
     t.integer  "ordered_quantity",  :default => 0
     t.boolean  "customized_widget"
+    t.string   "post_url"
   end
 
   add_index "products", ["category_id"], :name => "index_products_on_category_id"
@@ -285,6 +303,7 @@ ActiveRecord::Schema.define(:version => 20120122113024) do
     t.boolean  "is_admin"
     t.float    "rating"
     t.string   "username"
+    t.string   "blog_url"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -5,6 +5,11 @@ class OrderAddress < ActiveRecord::Base
   validates :first_name, :presence=>true
   validates :last_name, :presence=>true
   validates :street_1, :presence=>true
+  validates :city, :presence=>true
+  validates :state, :presence=>true
+  validates :postal_code, :presence=>true
+  validates :country, :presence=>true
+  
 
   attr_accessor :diff_add
 

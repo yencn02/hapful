@@ -16,7 +16,13 @@ class ProductImage < ActiveRecord::Base
     :url => "/assets/pi/:id_partition/:style/:filename",
     :path => ":rails_root/public/assets/pi/:id_partition/:style/:filename",
     :default_url=>"images/rails.png"
-  validates_attachment_presence :image
   validates_attachment_content_type :image, :content_type => VALID_CONTENT_TYPES
+  validate :check_file
+
+  private
+
+  def check_file
+    errors.add_to_base("Please upload a file") if self.image_file_size.to_i == 0
+  end
   
 end

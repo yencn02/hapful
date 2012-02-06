@@ -11,6 +11,7 @@ ProjectConfig.create!(:key=>"site_url", :value=>'http://127.0.0.1:3000')
 ProjectConfig.create!(:key=>"paypal_login", :value=>'hapful_1323917009_biz_api1.gmail.com')
 ProjectConfig.create!(:key=>"paypal_password", :value=>'1323917047')
 ProjectConfig.create!(:key=>"paypal_signature", :value=>'AFv7Jujecrsh1LTBIJMI8DBQtEQQAZ247BlTdAb7gpLHUUM6khKl.BFj')
+ProjectConfig.create!(:key=>"description_note", :value=>'Place the description on your blog to make sure you get all the traffic!')
 
 UserMerchantAccount::TYPES.each do |k,v|
   PaymentType.create!(:name=>v, :requisite_merchant_account=>k, :activated=>true)
@@ -18,7 +19,7 @@ end
 PaymentType.create!(:name=>'Cash on Delivery', :activated=>true)
 
 ShippingOption::DEFAULT_VALUES.each do |val|
-  ShippingOption.create!(:name=>val)
+  ShippingOption.create!(:name=>val, :activated=>true)
 end
 
 

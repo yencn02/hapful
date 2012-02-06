@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
   def completed
     return redirect_to market_path if session[:active_order].nil?
     @order = Order.find(session[:active_order])
-    @order.mark_as_for_delivery!
+    OrderMailer.order_complete(@order).deliver if @order.mark_as_for_delivery!
     session[:active_order] = nil
   end
 

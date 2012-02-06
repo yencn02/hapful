@@ -1,8 +1,27 @@
+- if current_user.merchant_accounts.blank?
+  #missing-merchant
+    - current_user.merchant_accounts.build
+    = form_for current_user, :url=>update_merch_path, :method=>:post, :html=>{:class=>'blue'} do |f|
+      .infobox
+        Please add merchant account details before posting a product
+      = f.fields_for :merchant_accounts do |merch_f|
+        %table
+          %tr
+            %td Email
+            %td= merch_f.text_field :email
+            %td Account Type
+            %td= merch_f.select :merchant_type, UserMerchantAccount::TYPES.collect{|k,v| [k.to_s.humanize,k]}
+      .right
+        = f.submit "Update Merchant Account", :class=>'greenBtn'
+      .clear
+- else
+  #add-product
+    = link_to "Add Product", [:new, :product], :class=>'greenBtn'
 .ui-ajax-tabs
   %ul
     %li= link_to "Orders", "#orders"
-    %li= link_to "Products", products_path(:ajax=>true)
-    %li= link_to "Account", "#account"
+    %li= link_to "My Products", products_path(:ajax=>true)
+    %li= link_to "My Account", "#account"
   #orders
     %h4
       Recent Orders

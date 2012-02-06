@@ -1,0 +1,31 @@
+.halfcolright
+  %fieldset.form
+    %legend
+      %strong SHIPPING OPTIONS
+    %table
+      - ShippingOption.active.each do |shipping_option|
+        %tr
+          %td= shipping_option.name
+          %td{:style=>'width: 20px'}= check_box_tag "shipopts[#{shipping_option.id}]shipping_option_id", |
+          shipping_option.id, f.object.shipping_type_ids.include?(shipping_option.id), |
+          :onclick=>"toggleAmount(this,'#{shipping_option.id}')"
+          %td Cost
+          %td= text_field_tag "shipopts[#{shipping_option.id}]amount", |
+          f.object.shipping_options.for_option(shipping_option).amount, :size=>5, :id=>"ship#{shipping_option.id}amt", |
+          :disabled=>!f.object.shipping_type_ids.include?(shipping_option.id)
+.half
+  %fieldset.form
+    %legend
+      %strong PAYMENT OPTIONS
+    %table
+      - PaymentType.activated.each do |payment_type|
+        %tr
+          %td{:style=>'width: 20px'}= check_box_tag "payopts[]", |
+          payment_type.id, f.object.payment_type_ids.include?(payment_type.id)
+          %td= payment_type.name
+.clear
+%br
+%script{:type=>"text/javascript"}
+  function toggleAmount(obj,id){
+  $('#ship' + id + 'amt').attr('disabled', !$(obj).is(':checked'))
+  }

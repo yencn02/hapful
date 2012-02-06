@@ -9,7 +9,7 @@ class CreateProductWidgets < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :product_widgets, [:product_id], :unique => true
+    add_index :product_widgets, :product_id
   end
 
   def self.down

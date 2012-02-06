@@ -1,0 +1,22 @@
+#widget
+  %fieldset.form
+    %legend
+      %strong WIDGET
+    = f.fields_for :widget do |widget_f|
+      %table
+        %tr
+          %td{:colspan=>2}
+            = f.check_box :customized_widget, :onclick=>"$('#customized_widget').toggle()"
+            %strong
+              = f.label :customized_widget, 'Let me customize my widget'
+      %table{:id=>"customized_widget", :style=>"display: #{ f.object.customized_widget? ? 'block' : 'none' }"}
+        %tr
+          %td{:colspan=>2}
+            = widget_f.check_box :embedded
+            %strong
+              = widget_f.label :embedded, 'Place widget on webpage instead of showing as a link'
+        %tr
+          %td
+            %strong
+              = widget_f.label :title, 'Link Label'
+          %td= widget_f.text_field :title

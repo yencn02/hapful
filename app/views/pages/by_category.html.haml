@@ -1,6 +1,10 @@
-%h3
-  Products from
-  = @seller.username
+%h5
+  = link_to "Products", market_path
+  >
+  = @category.name
+
+
 - @products.each do |product|
   = render :partial=>'shared/product_image', :locals=>{:product=>product}
 .clear
+= will_paginate @products
