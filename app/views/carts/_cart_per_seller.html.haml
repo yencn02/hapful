@@ -25,7 +25,7 @@
           = link_to_function "+", |
             "change_quantity('#{add_to_cart_path(item[:product].slug)}', '#{ret_url}', '#{item[:product_option_id]}', 'up')", |
             {:class=>"greenCharBtn"}
-        = item[:quantity]
+        = text_field_tag "item[quantity]", item[:quantity], :style=>'width: 50px; text-align: right'
         %span{:pv=>item[:product_option_id], :mv=>'down'}
           = link_to_function "-", |
             "change_quantity('#{add_to_cart_path(item[:product].slug)}', '#{ret_url}', '#{item[:product_option_id]}', 'down')", |

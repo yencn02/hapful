@@ -96,7 +96,7 @@ class Product < ActiveRecord::Base
     params.each do |k,v|
       obj = shipping_options.find(:first, :conditions=>{:shipping_option_id=>k})
       if obj
-        v['shipping_option_id'].nil? ? obj.destroy : obj.attributes = v
+        v['shipping_option_id'].nil? ? obj.destroy : obj.attributes = v; obj.save
       else
         v['shipping_option_id'].nil? ? next : self.shipping_options.build(v)
       end
@@ -120,6 +120,7 @@ class Product < ActiveRecord::Base
   def create_code
     self.code = Digest::SHA1.hexdigest("#{self.id}:#{self.name}")
     self.ordered_quantity = 0
+    self.quantity = 0 if self.quantity.nil?
     save
   end
 

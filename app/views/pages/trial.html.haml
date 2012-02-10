@@ -1,6 +1,7 @@
 = nested_form_for @product, :url=>"", :html=>{:class=>"", :multipart=>true} do |f|
   %fieldset.form
-    %legend USER DETAILS
+    %legend
+      %strong USER DETAILS
     = fields_for @user do |uf|
       = render :partial=>'shared/form_errors', :locals=>{:object=>@user}
       %p
@@ -24,7 +25,9 @@
   %br
   = render :partial=>'shared/form_errors', :locals=>{:object=>@product}
   #details
-    %fieldset
+    %fieldset.form
+      %legend
+        %strong PRODUCT DETAILS
       %table.zebra
         %tr
           %td{:colspan=>4}
@@ -60,6 +63,7 @@
           %td{:colspan=>3}= f.text_field :discounted_price, :size=>'8'
       .infobox
         = ProjectConfig.value("description_note")
+    %br
     = render :partial=>'products/image_and_variants_form', :locals=>{:f=>f}
     = render :partial=>'products/shipping_and_payment_form', :locals=>{:f=>f}
   = submit_tag "Save", :class=>'greenBtn'

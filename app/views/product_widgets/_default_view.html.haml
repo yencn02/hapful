@@ -21,10 +21,9 @@
           = render :partial=>'products/options'
     %tr
       %td{:colspan=>2}
-        %strong Quantity
-        = text_field_tag "cart[quantity]", 1, :size=>5
+        = hidden_field_tag "cart[quantity]", 1, :size=>5
         .right
           - unless @demo
-            = submit_tag "Add to Cart", :class=>"greenBtn"
+            = submit_tag "Buy this Item", :class=>"greenBtn"
   = raw @product.description
 .clear

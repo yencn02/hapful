@@ -111,7 +111,7 @@ class Order < ActiveRecord::Base
   end
 
   def available_shipping_options_for(cart)
-    cart.collect{|a| a[:product]}.collect{|a| a.shipping_options}.flatten.sort(&:amount).uniq
+    cart.collect{|a| a[:product]}.collect{|a| a.shipping_options}.flatten.sort{|a,b| a.amount<=>b.amount}.uniq
   end
 
   def accepted_payment_types

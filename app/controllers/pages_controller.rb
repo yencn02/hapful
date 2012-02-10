@@ -55,6 +55,7 @@ class PagesController < ApplicationController
   def trial
     @user = session[:created_user].blank? ? User.new(params[:user]) : User.find(session[:created_user])
     @product = @user.products.new(params[:product])
+    @product.images.build if @product.images.blank?
     if request.post?
       
       # work around for missing error messages for product
@@ -62,7 +63,6 @@ class PagesController < ApplicationController
       @product.set_payment_options(params[:payopts]) if params[:payopts]
       @product.set_shipping_options(params[:shipopts]) if params[:shipopts]
       @product.valid?
-
       
       if @user.save
         session[:created_user] = @user.id
