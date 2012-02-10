@@ -56,6 +56,7 @@ Hapful::Application.routes.draw do
   match '/add-to-cart/:product_slug' =>'carts#add',   :as=>:add_to_cart
   match '/cart/cq/:product_slug/:change' =>'carts#change_quantity', :as=>:change_quantity
   match '/my-cart'                    =>'carts#show', :as=>:show_cart
+  match '/trial' => 'pages#trial', :as=>:trial
 
   match  '/checkout/payment_state/:state'=> 'payments#set_state',               :as=>:set_payment_state
   match '/checkout/notice'            => 'payments#manual',                     :as=>:payment_notice

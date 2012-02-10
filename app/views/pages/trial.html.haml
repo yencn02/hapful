@@ -1,0 +1,65 @@
+= nested_form_for @product, :url=>"", :html=>{:class=>"", :multipart=>true} do |f|
+  %fieldset.form
+    %legend USER DETAILS
+    = fields_for @user do |uf|
+      = render :partial=>'shared/form_errors', :locals=>{:object=>@user}
+      %p
+        Email
+        %br
+        = uf.email_field :email
+      %p
+        Username
+        %br
+        = uf.text_field :username
+      %p
+        Password
+        %br
+        = uf.password_field :password
+      %p
+        Password Confirmation
+        %br
+        = uf.password_field :password_confirmation
+      
+  %br
+  %br
+  = render :partial=>'shared/form_errors', :locals=>{:object=>@product}
+  #details
+    %fieldset
+      %table.zebra
+        %tr
+          %td{:colspan=>4}
+            %strong Product Title
+            %br
+            = f.text_field :name, :style=>'width: 95%'
+        %tr
+          %td{:colspan=>4}
+            %strong Post URL
+            %br
+            = f.text_field :post_url, :size=>'70%'
+        %tr
+          %td{:style=>"width: 30%"}
+            %strong Category
+          %td
+            = f.select :category_id, Category.all.collect{|category| [category.name, category.id]}
+          %td
+            %strong Available Units
+          %td
+            = f.text_field :quantity, :size=>'8'
+        %tr
+          %td{:style=>"width: 30%"}
+            %strong Price
+          %td
+            = f.text_field :price, :size=>'8'
+          %td{:colspan=>2}
+            = f.check_box :on_discount, :onclick=>"$('#discount').toggle()"
+            %strong
+              = f.label :on_discount, 'Place item on discount'
+        %tr{:id=>'discount', :style=>"#{f.object.on_discount? ? '' : 'display: none' }; width: 100%"}
+          %td{:style=>"width: 30%"}
+            %strong Discounted Price
+          %td{:colspan=>3}= f.text_field :discounted_price, :size=>'8'
+      .infobox
+        = ProjectConfig.value("description_note")
+    = render :partial=>'products/image_and_variants_form', :locals=>{:f=>f}
+    = render :partial=>'products/shipping_and_payment_form', :locals=>{:f=>f}
+  = submit_tag "Save", :class=>'greenBtn'

@@ -1,9 +1,8 @@
 - if current_user.merchant_accounts.blank?
-  #missing-merchant
+  #missing-merchant.warningbox{:style=>'margin-bottom: 20px'}
     - current_user.merchant_accounts.build
     = form_for current_user, :url=>update_merch_path, :method=>:post, :html=>{:class=>'blue'} do |f|
-      .infobox
-        Please add merchant account details before posting a product
+      Please add merchant account details before posting a product
       = f.fields_for :merchant_accounts do |merch_f|
         %table
           %tr

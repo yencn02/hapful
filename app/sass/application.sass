@@ -12,14 +12,19 @@
   border-radius: $bl $br $tl $tr
   -moz-border-radius: $bl $br $tl $tr
 
+
+// variables
+$holder_color: #AA1111
+
 body
   :font-family "Helvetica Neue", Arial, Helvetica, sans-serif
+  :background #CDFFFF
 
 a
   :text-decoration none
-  :color #444433
-a:hover
   :color #008afd
+a:hover
+  :color #008af1
 
 
 #form_errors
@@ -63,7 +68,7 @@ a:hover
 
 #top_navigation
   :height 30px
-  +gradient(#96080a, #81080a)
+  +gradient(#AA1111, #81080a)
   :border-radius 0 0 1em 1em
   :-moz-border-radius 0 0 1em 1em
   :font-size 14px
@@ -81,16 +86,16 @@ a:hover
   +prepend-top(20px)
 
 #header
-  :background #96080a
+  :background $holder_color
   :border-radius 0.5em 4em 0 0
   :-moz-border-radius 0.5em 4em 0 0
 
 #content-holder
   :padding-bottom 1em
-  +prepend(1)
-  +append(1)
+  +prepend(0.5)
+  +append(0.5)
   :min-height 4em
-  :background #96080a
+  :background $holder_color
   :border-radius 0 0 0.5em 2em
   :-moz-border-radius 0 0 0.5em 2em
 
@@ -99,13 +104,14 @@ a:hover
     +prepend(0.5)
     +append(0.5)
     :background #FFF
-    +single-box-shadow(#81080a, 0, 0, 5px, 5px, false)
+    //+single-box-shadow(#1e1e1e, 0, 0, 5px, 5px, false)
 
   #footer
-    :background #000
+    :background #770000
     :min-height 1em
     :color #FFF
     :text-align center
+    :padding 15px
 
 #search-products
   :padding 10px
@@ -228,6 +234,14 @@ fieldset.blue
   :color #00529B
   :border 1px solid
   :background #BDE5F8 url(../images/help.png) no-repeat 5px center
+  :padding 10px
+  :padding-left 30px
+  :font-weight bold
+
+.warningbox
+  :color #9F6000
+  :border 1px solid
+  :background #FEEFB3
   :padding 10px
   :padding-left 30px
   :font-weight bold

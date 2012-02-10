@@ -4,8 +4,10 @@ db/*.sqlite3
 log/*.log
 tmp/
 public/stylesheets/application.css
+public/stylesheets/landing_page.css
 netbeans/
 config/database.yml
 public/system/
 public/assets/
 nbproject/
+server_infos
