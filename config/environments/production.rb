@@ -29,7 +29,7 @@ Hapful::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -53,12 +53,14 @@ Hapful::Application.configure do
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => "beta.hapful.com",
-    :authentication => :plain,
-    :user_name => "support@hapful.com",
-    :password => "Hhapt354"
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "support@hapful.com",
+    :domain               => "beta.hapful.com",
+    :password             => "Hhapt354",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
   }
+
 
 end

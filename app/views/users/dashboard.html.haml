@@ -2,7 +2,8 @@
   #missing-merchant.warningbox{:style=>'margin-bottom: 20px'}
     - current_user.merchant_accounts.build
     = form_for current_user, :url=>update_merch_path, :method=>:post, :html=>{:class=>'blue'} do |f|
-      Please add merchant account details before posting a product
+      Your product/s will not be published until you set your merchant account details.
+      = link_to 'Find out why', ''
       = f.fields_for :merchant_accounts do |merch_f|
         %table
           %tr

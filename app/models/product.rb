@@ -35,6 +35,7 @@ class Product < ActiveRecord::Base
   scope :top_rated, limit(10).order("rating DESC")
   scope :newly_added, limit(10).order("created_at DESC")
   scope :most_viewed, limit(10).order("views DESC")
+  scope :active, where({:state=>'published'})
 
 
   ## VALIDATIONS

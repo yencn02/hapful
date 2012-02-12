@@ -1,0 +1,8 @@
+- if @order
+  .infobox
+    Your Order with Reference Number
+    %strong= @order.reference_number
+    is now
+    %strong= @order.state.humanize
+%br
+Thank you for using Hapful.com

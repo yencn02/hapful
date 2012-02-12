@@ -30,7 +30,13 @@ class PagesController < ApplicationController
   end
 
   def view_order_tracking
-    
+    order = Order.where({:email=>params[:track][:email], :reference_number=>params[:track][:reference_number]})
+    if !order.empty?
+      @order = order.first
+    else
+      flash[:error]="Please check your reference number and email"
+      redirect_to order_tracking_url(params[:track][:reference_number])
+    end
   end
 
   def by_category
@@ -45,7 +51,8 @@ class PagesController < ApplicationController
       merch.attributes = values.delete_if{|k,v| k.to_s=='_destroy'}
     end
     msg = if @user.save
-      {:notice=>"Thank you."}
+      @user.products.update_all("state='published'")
+      {:notice=>"Thank you for adding your merchant details. You may now start linking your products to your blog posts!"}
     else
       {:error=>"#{@user.errors.full_messages.join(",")}"}
     end

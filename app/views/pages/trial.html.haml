@@ -2,24 +2,35 @@
   %fieldset.form
     %legend
       %strong USER DETAILS
-    = fields_for @user do |uf|
-      = render :partial=>'shared/form_errors', :locals=>{:object=>@user}
+    - if @user.new_record?
+      = fields_for @user do |uf|
+        = render :partial=>'shared/form_errors', :locals=>{:object=>@user}
+        %p
+          Email
+          %br
+          = uf.email_field :email
+        %p
+          Username
+          %br
+          = uf.text_field :username
+        %p
+          Password
+          %br
+          = uf.password_field :password
+        %p
+          Password Confirmation
+          %br
+          = uf.password_field :password_confirmation
+    - else
+      .infobox
+        Thank you for registering. You can login to your account or complete this form.
       %p
-        Email
-        %br
-        = uf.email_field :email
+        Email:
+        %strong= @user.email
       %p
-        Username
-        %br
-        = uf.text_field :username
-      %p
-        Password
-        %br
-        = uf.password_field :password
-      %p
-        Password Confirmation
-        %br
-        = uf.password_field :password_confirmation
+        Username:
+        %strong= @user.username
+      
       
   %br
   %br

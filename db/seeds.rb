@@ -12,6 +12,7 @@ ProjectConfig.create!(:key=>"paypal_login", :value=>'hapful_1323917009_biz_api1.
 ProjectConfig.create!(:key=>"paypal_password", :value=>'1323917047')
 ProjectConfig.create!(:key=>"paypal_signature", :value=>'AFv7Jujecrsh1LTBIJMI8DBQtEQQAZ247BlTdAb7gpLHUUM6khKl.BFj')
 ProjectConfig.create!(:key=>"description_note", :value=>'Place the description on your blog to make sure you get all the traffic!')
+ProjectConfig.create!(:key=>'email_sender', :value=>'support@hapful.com')
 
 UserMerchantAccount::TYPES.each do |k,v|
   PaymentType.create!(:name=>v, :requisite_merchant_account=>k, :activated=>true)
