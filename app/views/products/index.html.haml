@@ -15,8 +15,8 @@
       %tr
         %td= link_to product.name, product
         %td
-          = link_to 'Widget', [:edit, product, product.widget]
-          \|
+          /= link_to 'Widget', [:edit, product, product.widget] #disbaled for now
+          /\|
           = link_to 'Edit', edit_product_path(product)
           \|
           = link_to 'Delete', product, :confirm => 'Are you sure?', :method => :delete

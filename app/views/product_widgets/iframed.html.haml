@@ -4,8 +4,10 @@
     %li= link_to 'My Cart', "/my-cart?cbed=1#{'&demo=1' if params[:demo]}&seller=#{@product.user_id}", :id=>"cart-trigger"
   #product
     = form_for(:cart, :url=>"#{ProjectConfig.value('site_url')}#{add_to_cart_path(@product)}", :remote=>true) do |f|
-      - if @product.customized_widget?
-        = raw compile_template
-        = f.submit 'Add to cart', :class=>"greenBtn"
-      - else
-        = render 'product_widgets/default_view'
+      / customized widget disabled for now; use default always
+      /- if @product.customized_widget?
+      /  = raw compile_template
+      /  = f.submit 'Add to cart', :class=>"greenBtn"
+      /- else
+      /  = render 'product_widgets/default_view'
+      = render 'product_widgets/default_view'

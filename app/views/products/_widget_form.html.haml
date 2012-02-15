@@ -1,22 +1,23 @@
 #widget
   %fieldset.form
-    %legend
-      %strong WIDGET
     = f.fields_for :widget do |widget_f|
-      %table
+      / not needed anymore
+      /%table
+      /  %tr
+      /    %td{:colspan=>2}
+      /      = f.check_box :customized_widget, :onclick=>"$('#customized_widget').toggle()"
+      /      %strong
+      /        = f.label :customized_widget, 'Let me customize my widget'
+      = f.hidden_field :customized_widget, :value=>true
+      %table{:id=>"customized_widget"}
         %tr
           %td{:colspan=>2}
-            = f.check_box :customized_widget, :onclick=>"$('#customized_widget').toggle()"
-            %strong
-              = f.label :customized_widget, 'Let me customize my widget'
-      %table{:id=>"customized_widget", :style=>"display: #{ f.object.customized_widget? ? 'block' : 'none' }"}
-        %tr
-          %td{:colspan=>2}
-            = widget_f.check_box :embedded
-            %strong
-              = widget_f.label :embedded, 'Place widget on webpage instead of showing as a link'
-        %tr
-          %td
-            %strong
-              = widget_f.label :title, 'Link Label'
-          %td= widget_f.text_field :title
+            = widget_f.radio_button :embedded, true, :id=>'embed-true', :onclick=>"$('#widget-label').attr('disabled', true);"
+            %strong= widget_f.label :embedded, 'Display product directly in blog', |
+            :onclick=>"$('#embed-true').click();", :style=>"cursor: pointer"
+            %br
+            %br
+            = widget_f.radio_button :embedded, false, :id=>'embed-false', :onclick=>"$('#widget-label').removeAttr('disabled');"
+            %strong= widget_f.label :embedded, 'Display product in blog post using link that says', |
+            :onclick=>"$('#embed-false').click();", :style=>"cursor: pointer"
+            = widget_f.text_field :title, :id=>'widget-label', :disabled=>widget_f.object.embedded?
