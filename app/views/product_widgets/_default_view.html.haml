@@ -1,12 +1,16 @@
 %div{:style=>"float: left; width: 50%"}
-  = image_tag("#{ProjectConfig.value('site_url')}#{@product.images.first.image(:medium)}")
   #inline-content
     .slideshow
       - @product.images.each_with_index do |image, index|
-        - next if index==0
-        = link_to image_tag("#{ProjectConfig.value('site_url')}#{image.image(:thumbnail)}"), |
-          "#{ProjectConfig.value('site_url')}#{image.image.url}", |
-          :class=>"change_gallery colorbox-gallery"
+        - if index==0
+          = link_to image_tag("#{ProjectConfig.value('site_url')}#{@product.images.first.image(:medium)}"), |
+            "#{ProjectConfig.value('site_url')}#{image.image.url}", |
+            :class=>"change_gallery colorbox-gallery"
+          %br
+        - else
+          = link_to image_tag("#{ProjectConfig.value('site_url')}#{image.image(:thumbnail)}"), |
+            "#{ProjectConfig.value('site_url')}#{image.image.url}", |
+            :class=>"change_gallery colorbox-gallery"
 %div{:style=>"float: left; width: 50%"}
   %table.zebra
     %tr
