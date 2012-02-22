@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
   friendly_id :name, :use => :slugged
   
   acts_as_taggable
+  acts_as_commentable
 
   has_one :widget, :class_name=>'ProductWidget', :dependent=>:destroy
   
