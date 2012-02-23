@@ -1,95 +1,44 @@
-!!!
-%html
-  %head
-    = csrf_meta_tag
-
-    = javascript_include_tag 'jquery'
-    = javascript_include_tag 'jquery_ujs'
-    = javascript_include_tag 'jquery-ui'
-    = javascript_include_tag 'nested_form'
-    = javascript_include_tag 'tooltip'
-    = javascript_include_tag 'jquery.colorbox'
-    = javascript_include_tag 'application'
-
-    = stylesheet_link_tag 'screen', :media=>'screen, projection'
-    = stylesheet_link_tag 'screen'
-    /[if IE]
-      = stylesheet_link_tag 'ie'
-
-    = include_yui_editor_if_used.html_safe rescue ''
-
-    = stylesheet_link_tag 'typography'
-    = stylesheet_link_tag 'buttons'
-    = stylesheet_link_tag 'colorbox'
-    = stylesheet_link_tag 'jquery-ui-1.8.16.custom'
-    /= stylesheet_link_tag 'excite-bike/excite-bike'
-    = stylesheet_link_tag 'landing_page'
-
-    = yield :head
-    %title
-      HAPFUL
-  %body
-    #loading
-    #top_navigation
-      = image_tag("test-logo.png", :style=>"margin-left: 10px")
-      .controls
-        = link_to "home", '/'
-        \|
-        = link_to "faqs", '/'
-        \|
-        = link_to "my cart", '/my-cart'
-        \|
-        = link_to "market", '/market'
-        \|
-        - if user_signed_in?
-          = link_to "my account", user_dashboard_path
-          \|
-          = link_to "logout", '/logout'
-        - else
-          = link_to 'login', '/login'
-    #holder
-      #content
-        .content
-          .left{:style=>'float: left; width: 40%'}
-            %h1
-              Create a Free Link
-              %br
-              to your blog post!
-          .left{:style=>'float: left; width: 60%'}
-            %h3 If you are selling anything on your blog - hapful will help!
-            %br
-            = link_to "Try it Now!", trial_path, :class=>"redBrick", :style=>'margin-left: 10px'
-            or
-            = link_to "Login", '/login'
-            if existing user
-          .clear
-          %hr
-          .left{:style=>'float: left; width: 50%'}
-            .ui-tabs
-              %ul
-                %li= link_to "Top Rated Products", "#top-rated"
-                %li= link_to "Newest", "#newest"
-                %li= link_to "Most Viewed", "#most-viewed"
-              #top-rated
-                %h3 Top Rated Products
-                - @top_rateds.each do |top_rated|
-                  = render :partial=>'shared/product_image', :locals=>{:product=>top_rated}
-                .clear
-              #newest
-                %h3 Newest Products
-                - @newly_addeds.each do |product|
-                  = render :partial=>'shared/product_image', :locals=>{:product=>product}
-                .clear
-              #most-viewed
-                %h3 Most Viewed Products
-                - @most_viewed.each do |product|
-                  = render :partial=>'shared/product_image', :locals=>{:product=>product}
-                .clear
-          .left{:style=>'float: left; width: 40%; margin-left: 40px'}
-            %h2 FAQs
-            - @articles.each do |article|
-              %strong= article.name
-              %p{:style=>'text-align: justify'}
-                = raw article.content
-          .clear
+.left{:style=>'float: left; width: 40%'}
+  %h1
+    Create a Free Link
+    %br
+    to your blog post!
+.left{:style=>'float: left; width: 60%'}
+  %h3 If you are selling anything on your blog - hapful will help!
+  %br
+  = link_to "Try it Now!", trial_path, :class=>"orangeBrick", :style=>'margin-left: 10px'
+  or
+  = link_to "Login", '/login'
+  if existing user
+.clear
+%br
+%hr
+.left{:style=>'float: left; width: 50%'}
+  .ui-tabs
+    %ul
+      %li= link_to "Top Rated Products", "#top-rated"
+      %li= link_to "Newest", "#newest"
+      %li= link_to "Most Viewed", "#most-viewed"
+    #top-rated
+      %h3 Top Rated Products
+      - @top_rateds.each do |top_rated|
+        = render :partial=>'shared/product_image', :locals=>{:product=>top_rated}
+      .clear
+    #newest
+      %h3 Newest Products
+      - @newly_addeds.each do |product|
+        = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      .clear
+    #most-viewed
+      %h3 Most Viewed Products
+      - @most_viewed.each do |product|
+        = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      .clear
+.left{:style=>'float: left; width: 40%; margin-left: 40px'}
+  %h2 FAQs
+  - @articles.each do |article|
+    %strong= article.name
+    %p{:style=>'text-align: justify'}
+      = raw article.content
+.clear
           

@@ -22,7 +22,9 @@
             = f.text_field :name, :style=>'width: 95%'
         %tr
           %td{:colspan=>4}
-            %strong Post URL
+            %strong 
+              Post URL
+              %span.italic{:style=>"color: #7d7d7d"} (Paste in the URL of your blog post to create the link)
             %br
             = f.text_field :post_url, :size=>'70%'
         %tr
@@ -63,7 +65,7 @@
   = render :partial=>'shipping_and_payment_form', :locals=>{:f=>f}
   = render :partial=>'widget_form', :locals=>{:f=>f}
   .right
-    - if !@product.state.eql?("published")
+    - if @product.new_record?
       = f.submit 'Save and Publish', :class=>"greenBtn"
     - else
       = f.submit 'Update', :class=>"greenBtn"

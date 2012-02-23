@@ -14,17 +14,19 @@
 
 
 // variables
-$holder_color: #AA1111
+$holder_color: #99CCFF
 
 body
   :font-family "Helvetica Neue", Arial, Helvetica, sans-serif
-  :background #CDFFFF
+  :background #FFF
 
 a
   :text-decoration none
-  :color #008afd
+  //:color #008afd
+  :color #004276
 a:hover
-  :color #008af1
+  //:color #008af1
+  :color #111111
 
 
 #form_errors
@@ -66,21 +68,6 @@ a:hover
     :color #777
     :font-size 80%
 
-#top_navigation
-  :height 30px
-  +gradient(#AA1111, #81080a)
-  :border-radius 0 0 1em 1em
-  :-moz-border-radius 0 0 1em 1em
-  :font-size 14px
-  :text-align right
-  :padding 5px 15px 0 0
-  :color #999
-  a
-    :text-decoration none
-    :color #EEE
-  a:hover
-    :color #AAA
-
 #container
   +container
   +prepend-top(20px)
@@ -106,12 +93,14 @@ a:hover
     :background #FFF
     //+single-box-shadow(#1e1e1e, 0, 0, 5px, 5px, false)
 
-  #footer
-    :background #770000
-    :min-height 1em
-    :color #FFF
-    :text-align center
-    :padding 15px
+#footer
+  :color #222
+  :text-align center
+  :margin-top 15px
+  a
+    :color #222
+  a:hover
+    :text-decoration underline
 
 #search-products
   :padding 10px
@@ -184,7 +173,7 @@ a:hover
 
 #categories
   h5
-    :background url("images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") repeat-x scroll 50% 50% #5C9CCC
+    :background url("images/ui-bg_highlight-soft_15_cc0000_1x100.png") repeat-x scroll 50% 50% #CC0000
     :padding 10px
     :font-size 16px
     :color white
@@ -248,3 +237,6 @@ fieldset.blue
 
 .strong, .bold
   :font-weight bold
+
+.italic
+  :font-style italic

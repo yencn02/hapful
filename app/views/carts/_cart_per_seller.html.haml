@@ -18,7 +18,7 @@
       %td
         = number_to_currency(item[:product].effective_price)
         - if !item[:product_option_id].blank?
-          = "(+#{number_to_currency(item[:variant].additional_cost)})"
+          = "(+#{ number_to_currency(item[:variant].additional_cost.to_f )})" if item[:variant].additional_cost.to_f != 0.0
       %td
         %span{:pv=>item[:product_option_id]}
           - ret_url = params[:controller]=='orders' ? checkout_path(seller.username) : '/my-cart'
@@ -31,7 +31,7 @@
             "change_quantity('#{add_to_cart_path(item[:product].slug)}', '#{ret_url}', '#{item[:product_option_id]}', 'down')", |
             {:class=>"greenCharBtn"}
       %td
-        - item_amount = item[:quantity] * (item[:product].effective_price + item[:variant].additional_cost )
+        - item_amount = item[:quantity] * (item[:product].effective_price.to_f + item[:variant].additional_cost.to_f )
         - total_amount += item_amount
         = number_to_currency(item_amount)
   %tr

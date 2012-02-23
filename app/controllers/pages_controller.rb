@@ -5,7 +5,6 @@ class PagesController < ApplicationController
     @top_rateds = Product.top_rated
     @newly_addeds = Product.newly_added
     @most_viewed = Product.most_viewed
-    render :layout=>false
   end
 
   def market

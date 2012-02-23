@@ -3,7 +3,7 @@
   - if params[:cbed]
     = link_to "Shop Now!", '#', :onclick=>"$('#product-trigger').trigger('click')"
   - else
-    = link_to "Shop Now!", market_path
+    = link_to "Shop Now!", market_path, :class=>'redBrick'
 
 
 - else

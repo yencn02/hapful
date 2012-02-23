@@ -20,6 +20,14 @@ class UsersController < ApplicationController
 
   def update_password
     @user = current_user
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+    if @user.save
+      redirect_to user_dashboard_path, :notice=>'Password was updated.'
+    else
+      @message = "Password and Password Confirmation is not the same"
+      render 'change_password'
+    end
   end
 
   def merchant_detail

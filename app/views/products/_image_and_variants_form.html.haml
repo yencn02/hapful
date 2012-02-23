@@ -8,11 +8,12 @@
       - else
         = image_tag image_form.object.image(:thumbnail)
       = image_form.link_to_remove image_tag("close.png")
-    %strong= f.link_to_add "Add Image", :images
+    %strong= f.link_to_add "Add More Images", :images
 .half
   %fieldset.form{:style=>"min-height: 150px; width: 100%"}
     %legend
       %strong VARIANTS
+    %span.italic{:style=>"color: #7d7d7d"} (Create options like color, size, etc.)
     = f.fields_for :options do |option_form|
       %div{:style=>"border: 1px solid #095D92; background: #FFF; margin-bottom: 5px"}
         %table
@@ -26,7 +27,7 @@
             %td{:colspan=>2}= option_form.text_field :additional_cost, :size=>8
           %tr
             %td
-              %strong Quantity
+              %strong Quantity Available
             %td= option_form.text_field :quantity, :size=>8
             %td= option_form.link_to_remove image_tag("close.png")
 

@@ -9,6 +9,7 @@
       /      %strong
       /        = f.label :customized_widget, 'Let me customize my widget'
       = f.hidden_field :customized_widget, :value=>true
+      - widget_f.object.embedded = true if widget_f.object.new_record?
       %table{:id=>"customized_widget"}
         %tr
           %td{:colspan=>2}

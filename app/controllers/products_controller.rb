@@ -97,8 +97,8 @@ class ProductsController < ApplicationController
   end
 
   def set_shipping_and_payment
-    @product.set_payment_options(params[:payopts])
-    @product.set_shipping_options(params[:shipopts])
+    @product.set_payment_options(params[:payopts]) if params[:payopts]
+    @product.set_shipping_options(params[:shipopts]) if params[:shipopts]
   end
 
 end

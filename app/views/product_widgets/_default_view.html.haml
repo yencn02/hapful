@@ -22,9 +22,9 @@
         - else
           %strong{:style=>"font-size: 14px"}= number_to_currency(@product.price)
     - if @product.options.count > 0
-      %tr
+      %tr{:style=>"vertical-align: middle"}
         %td
-          Available Variants
+          Select yours
         %td
           = render :partial=>'products/options'
     %tr
