@@ -1,8 +1,14 @@
 .image_holder
   = link_to image_tag(product.images.first.image(:thumbnail)), product.redirection_path
+  .price
+    = number_to_currency product.price
   .image_title
     = link_to product.name, product.redirection_path
     %br
     by
     %span
       = link_to product.seller.username, "/s/#{product.seller.username}"
+    %br
+    - if controller_name != "comments"
+      %span
+        = link_to "view comments", product_comments_path(product)

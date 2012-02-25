@@ -56,6 +56,24 @@ $(document).ready(function(){
       }
     }
   });
+
+  $("span.toogle a").click(function(){
+    var el = $(this).parents('.comment').find('.subcomment');
+    el.toggle();
+    if (el.is(":visible") == true){
+      $(this).text("Collapse");
+    }else{
+      $(this).text("Expand");
+    }
+    return false;
+  });
+
+  $(".comment .reply").click(function(){
+    $(this).parents(".comment").find('.subcomment').show();
+    $(this).parents(".comment").find("span.toogle a").text("Collapse");
+    $(this).parents(".comment").find("#comment_body").focus();
+    return false
+  });
 });
 
 function add_to_yui(id, content){

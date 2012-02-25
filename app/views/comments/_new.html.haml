@@ -1,0 +1,8 @@
+.new_comment
+  = form_for([commentable, Comment.new]) do |f|
+    = f.hidden_field 'commentable_type', :value => commentable.class.name
+    = f.hidden_field 'commentable_id', :value => commentable.id
+    = f.hidden_field 'parent_id', :value => parent_id
+    .label Comment
+    .field= f.text_area :body, :cols => 50, :rows => 3
+    = f.submit "Post Comment"

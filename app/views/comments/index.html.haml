@@ -1,0 +1,12 @@
+= render :partial => "shared/product_image", :locals => {:product => @product}
+%div{:class => "clear"}
+  - if current_user
+    %h3 Leave a Comment
+    = render :partial => "new", :locals => {:commentable => @product, :parent_id => nil}
+  .list_comment{:style=> "margin-top:20px;"}
+    %h3 Comments
+    - if @product.root_comments.size > 0
+      - @product.root_comments.each do |comment|
+        = render :partial => "comment", :locals => {:comment => comment}
+    - else
+      No comments for this product
