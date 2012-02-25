@@ -5,15 +5,17 @@
     Comment by
     = link_to comment.user.username, "/s/#{comment.user.username}"
     = "(#{time_ago_in_words(comment.created_at)} ago)"
-    = link_to "Delete", product_comment_path(@product, comment), :method => :delete, :confirm => "Are you sure?"
-    - unless comment.parent
+    - if current_user && current_user.is_admin
+      = link_to "Delete", product_comment_path(@product, comment), :method => :delete, :confirm => "Are you sure?"
+    - if current_user && !comment.parent
       = link_to "Reply", "#", :class => "reply"
+    - if comment.has_children?
       %span.toogle
         = link_to "Collapse", "#"
     %div.clear
   - if comment.has_children?
     - comment.children.each do |subcomment|
       = render :partial => "comment", :locals => {:comment => subcomment}
-  - unless comment.parent
+  - if current_user && !comment.parent
     %div.subcomment
       = render :partial => "new", :locals => {:commentable => @product, :parent_id => comment.id}
