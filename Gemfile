@@ -4,6 +4,8 @@ gem 'rails', '3.0.6'
 gem 'mysql2', '~>0.2.7'
 gem 'mail'
 gem 'devise'
+gem "omniauth-facebook"
+gem "omniauth-twitter"
 gem 'nested_form'
 gem 'haml-rails'
 gem 'compass', '>= 0.11.1'

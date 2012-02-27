@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
+  devise :omniauthable
 
   ## CALLBACKS
 
@@ -51,5 +52,28 @@ class User < ActiveRecord::Base
     UserMailer.welcome_email(self).deliver
   end
 
-  
+  def name=(fullname)
+    self.first_name = fullname.to_s.split(" ").first.to_s
+    self.last_name = fullname.to_s.gsub(self.first_name, "").strip
+  end
+
+  def self.create_with_omniauth(auth)
+    user = User.new
+    user.provider = auth["provider"]
+    user.email = auth["user_info"]["email"]
+    user.uid = auth["uid"]
+    user.name = auth["user_info"]["name"]
+    user.username = auth["user_info"]["nickname"]
+    user.auth = auth.to_json
+    user.save(:validate => false)
+    return user
+  end
+
+  def auth
+    begin
+      JSON.parse(self[:auth])
+    rescue
+      self[:auth]
+    end
+  end
 end

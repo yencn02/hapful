@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120222072225) do
+ActiveRecord::Schema.define(:version => 20120227053129) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -321,6 +321,9 @@ ActiveRecord::Schema.define(:version => 20120222072225) do
     t.float    "rating"
     t.string   "username"
     t.string   "blog_url"
+    t.string   "provider"
+    t.string   "uid"
+    t.text     "auth"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
