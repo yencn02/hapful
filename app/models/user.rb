@@ -60,11 +60,18 @@ class User < ActiveRecord::Base
   def self.create_with_omniauth(auth)
     user = User.new
     user.provider = auth["provider"]
-    user.email = auth["user_info"]["email"]
     user.uid = auth["uid"]
-    user.name = auth["user_info"]["name"]
-    user.username = auth["user_info"]["nickname"]
-    user.auth = auth.to_json
+    data = auth.extra.raw_info
+    case auth["provider"]
+    when "twitter"
+      user.username = data.screen_name
+      user.name = data.name
+      user.email = "#{user.username}@hapful.com"
+    when "facebook"
+      user.name = data.name
+      user.username = user.name.to_s.downcase.gsub(" ", "-")
+      user.email = data.email
+    end
     user.save(:validate => false)
     return user
   end
