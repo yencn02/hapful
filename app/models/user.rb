@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    UserMailer.welcome_email(self).deliver
+    UserMailer.welcome_email(self).deliver if self.provider.blank?
   end
 
   def name=(fullname)
