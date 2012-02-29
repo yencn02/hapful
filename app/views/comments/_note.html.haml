@@ -1,0 +1,17 @@
+%div.note{:id => "note#{comment.id}"}
+  commented by
+  = link_to comment.user.username, "/s/#{comment.user.username}"
+  = "(#{time_ago_in_words(comment.created_at)} ago)"
+  ·
+  = pluralize(comment.upvotes.size, "like")
+  - if current_user
+    ·
+    - text = (current_user.voted_as_when_voted_for(comment) ? "Unlike" : "Like")
+    = link_to text, vote_product_comment_path(comment.commentable, comment), :class => "vote", :remote => true
+  - if current_user && !comment.parent
+    ·
+    = link_to "Reply", "#", :class => "reply"
+  - if current_user && current_user.is_admin
+    ·
+    = link_to "Delete", product_comment_path(@product, comment), :method => :delete, :confirm => "Are you sure?"
+  %div.clear

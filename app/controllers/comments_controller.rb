@@ -26,6 +26,15 @@ class CommentsController < ApplicationController
     redirect_to product_comments_path @product    
   end
 
+  def vote
+    @comment = Comment.find(params[:id])
+    if current_user.voted_as_when_voted_for(@comment)
+      current_user.dislikes @comment
+    else
+      current_user.likes @comment
+    end
+  end
+  
   protected
   def get_product
     @product = Product.find(params[:product_id])

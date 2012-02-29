@@ -56,18 +56,7 @@ $(document).ready(function(){
       }
     }
   });
-
-  $(".comment .reply").click(function(){
-    $(this).parents(".comment").find('.subcomment').show();
-    $(this).parents(".comment").find("#comment_body").focus();
-    return false
-  });
-
-  $(".new_comment .cancel").click(function(){
-    $(this).parents(".subcomment.reply").hide();
-    return false;
-  });
-
+  Comment.init();
 });
 
 function add_to_yui(id, content){
@@ -121,6 +110,17 @@ function change_quantity(url, return_url, pv, mv){
   });
 }
 
+Comment = {
+  init: function(){
+    $(".comment .reply").click(function(){
+      $(this).parents(".comment").find('.subcomment').show();
+      $(this).parents(".comment").find("#comment_body").focus();
+      return false
+    });
 
-
-
+    $(".new_comment .cancel").click(function(){
+      $(this).parents(".subcomment.reply").hide();
+      return false;
+    });
+  }
+}

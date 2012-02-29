@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable
+  acts_as_voter
 
   ## CALLBACKS
 

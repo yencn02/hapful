@@ -1,15 +1,8 @@
-%div{:class => "#{(comment.parent.nil? ? "comment" : "subcomment")}"}
+%div{:class => "#{(comment.parent.nil? ? "comment" : "subcomment")}", :id => "comment#{comment.id}"}
+
   %div
     = comment.body
-  %div.note
-    Comment by
-    = link_to comment.user.username, "/s/#{comment.user.username}"
-    = "(#{time_ago_in_words(comment.created_at)} ago)"
-    - if current_user && current_user.is_admin
-      = link_to "Delete", product_comment_path(@product, comment), :method => :delete, :confirm => "Are you sure?"
-    - if current_user && !comment.parent
-      = link_to "Reply", "#", :class => "reply"
-    %div.clear
+  = render :partial => "note", :locals => {:comment => comment}
   - if comment.has_children?
     - comment.children.each do |subcomment|
       = render :partial => "comment", :locals => {:comment => subcomment}

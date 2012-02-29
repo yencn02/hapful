@@ -19,6 +19,7 @@ gem 'active_utils'
 gem 'acts-as-taggable-on', '~>2.1.0'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'activemerchant', :require => 'active_merchant'
+gem "acts_as_votable", "~> 0.1.3"
 
 group :development do
   gem 'ruby-debug-base19', '0.11.26'

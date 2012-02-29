@@ -44,7 +44,11 @@ Hapful::Application.routes.draw do
         get :iframed
       end
     end
-    resources :comments
+    resources :comments do
+      member do
+        get :vote
+      end
+    end
     member do
       get :demo
     end
