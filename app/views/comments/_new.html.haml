@@ -6,3 +6,5 @@
     .label Comment
     .field= f.text_area :body, :cols => 50, :rows => 3
     = f.submit "Post Comment"
+    - if parent_id
+      = link_to "Cancel", "#", :class => "cancel"

@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_filter :get_product
+  before_filter :authenticate_user!, :except => [:index]
+
 
   def index
 

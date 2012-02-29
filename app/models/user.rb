@@ -67,10 +67,12 @@ class User < ActiveRecord::Base
       user.email = "#{user.username}@hapful.com"
     when "facebook"
       user = User.find_by_email(data.email)
-      user = User.new unless user
-      user.name = data.name
-      user.username = data.name.to_s.downcase.gsub(" ", "-")
-      user.email = data.email
+      unless user
+        user = User.new
+        user.name = data.name
+        user.username = data.name.to_s.downcase.gsub(" ", "-")
+        user.email = data.email
+      end
     end
     user.provider = auth["provider"]
     user.uid = auth["uid"]
