@@ -112,13 +112,13 @@ function change_quantity(url, return_url, pv, mv){
 
 Comment = {
   init: function(){
-    $(".comment .reply").click(function(){
+    $(".comment .reply").unbind().click(function(){
       $(this).parents(".comment").find('.subcomment').show();
       $(this).parents(".comment").find("#comment_body").focus();
       return false
     });
 
-    $(".new_comment .cancel").click(function(){
+    $(".new_comment .cancel").unbind().click(function(){
       $(this).parents(".subcomment.reply").hide();
       return false;
     });
