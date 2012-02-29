@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_with_omniauth(auth)
+
     user = User.new
     user.provider = auth["provider"]
     user.uid = auth["uid"]
@@ -69,7 +70,7 @@ class User < ActiveRecord::Base
       user.email = "#{user.username}@hapful.com"
     when "facebook"
       user.name = data.name
-      user.username = user.name.to_s.downcase.gsub(" ", "-")
+      user.username = data.name.to_s.downcase.gsub(" ", "-")
       user.email = data.email
     end
     user.save(:validate => false)
