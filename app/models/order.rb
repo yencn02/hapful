@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :shipping_address, :reject_if=>proc{|attr| attr['diff_add'].eql?('false')}
 
   validate :check_shipping_method
-  validates :email, :presence=>true
+  validates :email, :presence=>true, :format=>{:with=>/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
 
   scope :recent, :order=>'created_at', :limit=>10
 
