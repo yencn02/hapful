@@ -13,57 +13,7 @@
         = f.submit 'Update', :class=>"greenBtn"
   .clear
   #details
-    %fieldset
-      %table.zebra
-        %tr
-          %td{:colspan=>4}
-            %strong Product Title
-            %br
-            = f.text_field :name, :style=>'width: 95%'
-        %tr
-          %td{:colspan=>4}
-            %strong 
-              Post URL
-              %span.italic{:style=>"color: #7d7d7d"} (Paste in the URL of your blog post to create the link)
-            %br
-            = f.text_field :post_url, :size=>'70%'
-        %tr
-          %td{:style=>"width: 30%"}
-            %strong Category
-          %td
-            = f.select :category_id, Category.all.collect{|category| [category.name, category.id]}
-          %td
-            %strong Available Units
-          %td
-            = f.text_field :quantity, :size=>'8'
-        %tr
-          %td{:style=>"width: 30%"}
-            %strong Price
-          %td
-            = f.text_field :price, :size=>'8'
-          %td{:colspan=>2}
-            = f.check_box :on_discount, :onclick=>"$('#discount').toggle()"
-            %strong
-              = f.label :on_discount, 'Place item on discount'
-        %tr{:id=>'discount', :style=>"#{f.object.on_discount? ? '' : 'display: none' }; width: 100%"}
-          %td{:style=>"width: 30%"}
-            %strong Discounted Price
-          %td{:colspan=>3}= f.text_field :discounted_price, :size=>'8'
-      .infobox
-        = ProjectConfig.value("description_note")
-      /%div
-      /  %table
-      /    %tr
-      /      %td{:colspan=>4}
-      /        .note
-      /          Place your descriptions on your blog.
-      /        %strong Description
-      /        %br
-      /        = f.text_area :description, :cols=>'95%', :rows=>'5'
-  %br
-  = render :partial=>'image_and_variants_form', :locals=>{:f=>f}
-  = render :partial=>'shipping_and_payment_form', :locals=>{:f=>f}
-  = render :partial=>'widget_form', :locals=>{:f=>f}
+    = render :partial=>'product_fields', :locals=>{:f=>f}
   .right
     - if @product.new_record?
       = f.submit 'Save and Publish', :class=>"greenBtn"

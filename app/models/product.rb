@@ -43,19 +43,20 @@ class Product < ActiveRecord::Base
   
   alias_method :seller, :user
 
-  scope :top_rated, where({:state=>'active'}, limit(10).order("rating DESC"))
-  scope :newly_added, where({:state=>'active'}, limit(10).order("created_at DESC"))
-  scope :most_viewed, where({:state=>'active'}, limit(10).order("views DESC"))
-  scope :active, where("state!='deleted' OR state IS NULL ")
+  scope :top_rated, where({:state=>'active', :use_hapful=>true}, limit(10).order("rating DESC"))
+  scope :newly_added, where({:state=>'active', :use_hapful=>true}, limit(10).order("created_at DESC"))
+  scope :most_viewed, where({:state=>'active', :use_hapful=>true}, limit(10).order("views DESC"))
+  scope :active, where(["state!='deleted' OR state IS NULL AND use_hapful=?", true])
   scope :deleted, where({:state=>'deleted'})
+  scope :as_external, where({:is_external=>true})
 
 
   ## VALIDATIONS
   validates_presence_of :name
   validates_presence_of :price
   validates_presence_of :post_url
-  validate :has_image?
-  validate :check_payment_and_shipping
+  validate :has_image?, :if=>:use_hapful?
+  validate :check_payment_and_shipping, :if=>:use_hapful?
 
   ## CALLBACKS
   after_create [:create_code, :initialize_widget_data]

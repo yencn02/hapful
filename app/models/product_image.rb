@@ -5,7 +5,7 @@ class ProductImage < ActiveRecord::Base
     'image/png','image/x-png',
     'image/jpeg', 'image/pjpeg',
     'image/tiff', 'image/x-tiff'
-    ]
+  ]
 
   Paperclip.interpolates :filename do |attachment, style|
     attachment.instance.image_file_name

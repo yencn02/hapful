@@ -1,19 +1,18 @@
-.right
-  /- if false #current_user.incomplete_merchant_details?
-  /  Please update your merchant details before creating a product.
-  /- else
-  /  = link_to "Add New Product", [:new, :product], :class=>"greenBtn"
 .clear
+- unless params[:ajax]
+  %h3 Product List
 %br
 #list
   %table.zebra
     %thead
       %tr
         %th Name
-        %th
+        %th Behavior
+        %th Options
     - @products.each do |product|
       %tr
         %td= link_to product.name, product
+        %td= product.use_hapful? ? 'Uses Hapful' : 'External link'
         %td
           /= link_to 'Widget', [:edit, product, product.widget] #disbaled for now
           /\|

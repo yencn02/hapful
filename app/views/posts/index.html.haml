@@ -1,0 +1,8 @@
+#post-loader{:style=>"position: absolute; top: 30%; background: #DDD; display: none"}
+  = image_tag('init_load.gif')
+Sort posts by
+= select_tag "sort_by", options_for_select(['newest', 'top rated', 'most viewed']), :onchange=>"sort_posts(this)"
+%br
+#posts
+  - @posts.each do |post|
+    = render :partial=>'shared/show_post', :locals=>{:post=>post}

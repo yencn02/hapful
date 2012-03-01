@@ -1,4 +1,10 @@
-= render :partial => "shared/product_image", :locals => {:product => @product}
+- if @product.use_hapful?
+  = render :partial => "shared/product_image", :locals => {:product => @product}
+-else
+  %h2
+    = @product.name
+  %hr
+
 .list_comment.clear
   %h3 Comments
   - if @product.root_comments.size > 0

@@ -110,6 +110,23 @@ function change_quantity(url, return_url, pv, mv){
   });
 }
 
+function sort_posts(obj){
+  $('#post-loader').show();
+  $('#posts').hide();
+  $.ajax({
+    url: '/posts/ajax_sort',
+    data: {
+      sort: $(obj).val()
+    },
+    success: function(data){
+      $('#posts').html(data.data);
+      $('#post-loader').hide();
+      $('#posts').show();
+    }
+  })
+}
+
+
 Comment = {
   init: function(){
     $(".comment .reply").unbind().click(function(){

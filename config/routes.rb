@@ -59,6 +59,8 @@ Hapful::Application.routes.draw do
     end
   end
 
+  match '/posts/(:action)', :controller=>:posts
+
   resources :orders do
     member do
       get :change_state

@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def index
-    @articles = Article.welcome
+    @posts = Post.all
     @top_rateds = Product.top_rated
     @newly_addeds = Product.newly_added
     @most_viewed = Product.most_viewed
@@ -73,6 +73,9 @@ class PagesController < ApplicationController
       if @user.save
         session[:created_user] = @user.id
         @product.user_id = @user.id
+        unless @product.use_hapful?
+          @product.images = []
+        end
         if @product.save
           flash[:success] = "Thank you for trying out Hapful"
           sign_in_and_redirect(:user, @user)

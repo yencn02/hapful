@@ -1,13 +1,6 @@
 #widget
   %fieldset.form
     = f.fields_for :widget do |widget_f|
-      / not needed anymore
-      /%table
-      /  %tr
-      /    %td{:colspan=>2}
-      /      = f.check_box :customized_widget, :onclick=>"$('#customized_widget').toggle()"
-      /      %strong
-      /        = f.label :customized_widget, 'Let me customize my widget'
       = f.hidden_field :customized_widget, :value=>true
       - widget_f.object.embedded = true if widget_f.object.new_record?
       %table{:id=>"customized_widget"}

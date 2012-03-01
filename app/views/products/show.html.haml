@@ -3,14 +3,32 @@
     = link_to "Products", products_path
     >
     = @product.name
-  .ui-tabs
-    %ul
-      %li= link_to "Details", "#details"
-      %li= link_to "Logistics", "#logistics"
-      /%li= link_to "Widget Customization", "#widget" //NOTE: disabled for now
-    = render 'show_details'
-    = render 'show_logistics'
-    /= render 'show_widget_customization' //NOTE: disabled for now
+  %h4= link_to "Edit", [:edit, @product]
+  - if @product.use_hapful?
+    .ui-tabs
+      %ul
+        %li= link_to "Details", "#details"
+        %li= link_to "Logistics", "#logistics"
+        /%li= link_to "Widget Customization", "#widget" //NOTE: disabled for now
+      = render 'show_details'
+      = render 'show_logistics'
+      /= render 'show_widget_customization' //NOTE: disabled for now
+  - else
+    .ui-tabs
+      %ul
+        %li= link_to "Details", "#details"
+    #details
+      %table.zebra
+        %tr
+          %td Title
+          %td.strong= @product.name
+        %tr
+          %td URL
+          %td.strong= @product.post_url
+        %tr
+          %td Price
+          %td.strong= number_to_currency(@product.price)
+        
 - else
   = render 'products/buyer_view'
   

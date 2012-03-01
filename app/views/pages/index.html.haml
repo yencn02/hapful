@@ -5,11 +5,17 @@
     to your blog post!
 .left{:style=>'float: left; width: 60%'}
   %h3 If you are selling anything on your blog - hapful will help!
-  %br
-  = link_to "Try it Now!", trial_path, :class=>"orangeBrick", :style=>'margin-left: 10px'
-  or
-  = link_to "Login", '/login'
-  if existing user
+  - if current_user
+    %br
+    = link_to "Try it Now!", new_product_path, :class=>"orangeBrick", :style=>'margin-left: 10px'
+    or
+    = link_to "Go to my Dashboard", '/my-dashboard'
+  - else
+    %br
+    = link_to "Try it Now!", trial_path, :class=>"orangeBrick", :style=>'margin-left: 10px'
+    or
+    = link_to "Login", '/login'
+    if existing user
 .clear
 %br
 %hr
@@ -34,11 +40,15 @@
       - @most_viewed.each do |product|
         = render :partial=>'shared/product_image', :locals=>{:product=>product}
       .clear
-.left{:style=>'float: left; width: 40%; margin-left: 40px'}
-  %h2 FAQs
-  - @articles.each do |article|
-    %strong= article.name
-    %p{:style=>'text-align: justify'}
-      = raw article.content
+.left{:style=>'float: left; width: 45%; margin-left: 30px; position: relative'}
+  #post-loader{:style=>"position: absolute; top: 30%; background: #DDD; display: none"}
+    = image_tag('init_load.gif')
+  %div{:style=>"margin-bottom: 10px"}
+    Sort posts by
+    = select_tag "sort_by", options_for_select(['newest', 'top rated', 'most viewed']), :onchange=>"sort_posts(this)"
+  #posts
+    - @posts.each do |post|
+      = render :partial=>'shared/show_post', :locals=>{:post=>post}
+  = link_to "See All Posts", '/posts'
 .clear
           

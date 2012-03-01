@@ -1,0 +1,47 @@
+%table.zebra
+  %tr
+    %td{:colspan=>2}
+      %strong Product Title
+      %br
+      = f.text_field :name, :style=>'width: 95%'
+  %tr
+    %td{:colspan=>2}
+      %strong
+        Post URL
+        %span.italic{:style=>"color: #7d7d7d"} (Paste in the URL of your blog post to create the link)
+      %br
+      = f.text_field :post_url, :size=>'70%'
+  %tr
+    %td{:style=>"width: 30%"}
+      %strong Price
+    %td= f.text_field :price, :size=>'8'
+  %tr
+    %td{:colspan=>2}
+      = f.check_box :use_hapful, :onclick=>"$('#as-product').toggle()"
+      = f.label :use_hapful, "Use Hapful to manage by product."
+#as-product{:style=>"display: #{f.object.use_hapful? ? 'block' : 'none' }"}
+  %table.zebra
+    %tr
+      %td{:style=>"width: 30%"}
+        %strong Category
+      %td
+        = f.select :category_id, Category.all.collect{|category| [category.name, category.id]}
+      %td
+        %strong Available Units
+      %td
+        = f.text_field :quantity, :size=>'8'
+    %tr
+      %td{:colspan=>4}
+        = f.check_box :on_discount, :onclick=>"$('#discount').toggle()"
+        %strong
+          = f.label :on_discount, 'Place item on discount'
+    %tr{:id=>'discount', :style=>"#{f.object.on_discount? ? '' : 'display: none' }; width: 100%"}
+      %td{:style=>"width: 30%"}
+        %strong Discounted Price
+      %td{:colspan=>3}= f.text_field :discounted_price, :size=>'8'
+  .infobox
+    = ProjectConfig.value("description_note")
+  %br
+  = render :partial=>'products/image_and_variants_form', :locals=>{:f=>f}
+  = render :partial=>'products/shipping_and_payment_form', :locals=>{:f=>f}
+  /= render :partial=>'products/widget_form', :locals=>{:f=>f}

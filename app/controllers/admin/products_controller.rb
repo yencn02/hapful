@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   def index
-    @products = Product.active.paginate(:page=>params[:page], :per_page=>15, :order=>"state desc")
+    @products = Product.paginate(:page=>params[:page], :per_page=>15, :order=>"state desc")
     @deleted_products = Product.deleted
   end
 
