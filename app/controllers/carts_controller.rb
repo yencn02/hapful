@@ -13,6 +13,10 @@ class CartsController < ApplicationController
 
       ## Buyer clicks the up and down arrow on the orders table
       cart_contents[new_item_key][:quantity] = if params[:change].eql?('down')
+        if cart_contents[new_item_key][:quantity].to_i - params[:cart][:quantity].to_i < 1
+          flash[:error] = "Quantity is not allowed"
+          return redirect_to show_cart_path
+        end
         cart_contents[new_item_key][:quantity].to_i - params[:cart][:quantity].to_i
       else
         params[:cart][:quantity].to_i + cart_contents[new_item_key][:quantity].to_i
