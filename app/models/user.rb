@@ -4,11 +4,26 @@ class User < ActiveRecord::Base
   devise :omniauthable
   acts_as_voter
 
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
+  
   ## CALLBACKS
 
   after_create :send_welcome_email
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
+
+  ## AASM 'look-alike' methods
+  STATES = %w(banned active)
+  STATES.each do |state|
+    define_method "#{state}?" do
+      self.state == state
+    end
+    define_method "#{state}!" do
+      self.state = state
+      self.save(false)
+    end
+  end
+
+
 
   has_many :products, :dependent=>:destroy
   has_many :orders, :foreign_key=>'seller_id'
@@ -88,4 +103,7 @@ class User < ActiveRecord::Base
       self[:auth]
     end
   end
+
+  
+  
 end

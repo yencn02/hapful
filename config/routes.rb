@@ -12,7 +12,12 @@ Hapful::Application.routes.draw do
     resources :payment_types
     resources :shipping_options
     resources :project_configs
-    resources :users
+    resources :users do
+      member do
+        post :tag
+      end
+    end
+    resources :products
     root :to => 'dashboard#index'
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229071112) do
+ActiveRecord::Schema.define(:version => 20120229043740) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -142,6 +142,15 @@ ActiveRecord::Schema.define(:version => 20120229071112) do
     t.string   "name"
     t.string   "description"
     t.string   "requisite_merchant_account"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.string   "url"
+    t.float    "price"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -324,6 +333,7 @@ ActiveRecord::Schema.define(:version => 20120229071112) do
     t.string   "provider"
     t.string   "uid"
     t.text     "auth"
+    t.string   "state"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

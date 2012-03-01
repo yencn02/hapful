@@ -33,7 +33,7 @@
   %body
     #loading
     #top_navigation
-      = image_tag("test-logo.png", :style=>"margin-left: 10px")
+      = image_tag("test-logo.png", :style=>"margin-left: 10px; float:left")
       .controls
         = link_to "home", '/'
         \|
@@ -49,6 +49,7 @@
           = link_to "logout", '/logout'
         - else
           = link_to 'login', '/login'
+      .clear
     #holder
       #content
         .content

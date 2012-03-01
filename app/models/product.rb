@@ -1,6 +1,16 @@
 class Product < ActiveRecord::Base
 
-  STATES = %w(new saved expiring published)
+  STATES = %w(new saved expiring published deleted)
+  STATES.each do |state|
+    define_method "#{state}?" do
+      self.state == state
+    end
+    define_method "mark_as_#{state}!" do
+      self.state = state
+      self.save
+    end
+  end
+
   extend FriendlyId
   friendly_id :name, :use => :slugged
   
@@ -33,10 +43,11 @@ class Product < ActiveRecord::Base
   
   alias_method :seller, :user
 
-  scope :top_rated, limit(10).order("rating DESC")
-  scope :newly_added, limit(10).order("created_at DESC")
-  scope :most_viewed, limit(10).order("views DESC")
-  scope :active, where({:state=>'published'})
+  scope :top_rated, where({:state=>'active'}, limit(10).order("rating DESC"))
+  scope :newly_added, where({:state=>'active'}, limit(10).order("created_at DESC"))
+  scope :most_viewed, where({:state=>'active'}, limit(10).order("views DESC"))
+  scope :active, where("state!='deleted' OR state IS NULL ")
+  scope :deleted, where({:state=>'deleted'})
 
 
   ## VALIDATIONS
@@ -48,7 +59,7 @@ class Product < ActiveRecord::Base
 
   ## CALLBACKS
   after_create [:create_code, :initialize_widget_data]
-
+  
   def belongs_to?(user)
     self.user == user
   end

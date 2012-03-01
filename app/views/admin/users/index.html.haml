@@ -5,12 +5,19 @@
     %tr
       %th Username
       %th Email
+      %th State
       %th Option
     - @users.each do |user|
       %tr
         %td= user.username
         %td= user.email
+        %td= user.state
         %td
           = link_to "Edit", [:edit, :admin, user]
+          |
+          - if user.banned?
+            = link_to "Activate", tag_admin_user_path(user, :state=>'active'), :method=>:post
+          - else
+            = link_to "Ban", tag_admin_user_path(user, :state=>'banned'), :method=>:post, :confirm=>"Are you sure?"
         
 = will_paginate @users

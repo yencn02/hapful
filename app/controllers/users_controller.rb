@@ -22,8 +22,8 @@ class UsersController < ApplicationController
     @user = current_user
     @user.password = params[:password]
     @user.password_confirmation = params[:password_confirmation]
-    if @user.save
-      redirect_to user_dashboard_path, :notice=>'Password was updated.'
+    if @user.save(false)
+      sign_in_and_redirect(:user, @user, :notice=>'Password was updated.')
     else
       @message = "Password and Password Confirmation is not the same"
       render 'change_password'
@@ -54,8 +54,5 @@ class UsersController < ApplicationController
       render 'merchant_detail'
     end
   end
-
-  
-  
   
 end
