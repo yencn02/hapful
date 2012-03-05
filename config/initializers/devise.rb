@@ -180,7 +180,7 @@ Devise.setup do |config|
 
   if Rails.env.production?
     config.omniauth :facebook, '376964595648443', '9d43efb65c270775ca166efd8891688a', :scope => 'offline_access,email'
-    config.omniauth :twitter, 'GI2DrjlN4qWP8j6lSt3LFA', 'xbrVRzYpNijwKwQvWlkePkbpCc7xxFMD0mchJHTkcI'
+    config.omniauth :twitter, 'l6cCYOcrP0df3yESF7D7w', 'uRtGK1LHNSO1jobAZkEA9xslJTiE8Zr2nZk1znZITXk'
   end
 
 
