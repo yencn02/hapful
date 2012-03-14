@@ -96,6 +96,8 @@ Hapful::Application.routes.draw do
   put '/redirect/:url' => 'pages#redirection'
   match '/p/:id' => 'products#show'
   match '/s/:seller'  =>'pages#seller', :as=>:seller_page
+  match '/faqs' => 'pages#faqs', :as=>:faqs
+  match '/privacy_policy' => 'pages#privacy_policy', :as=>:privacy_policy
 
   #  scope :protocol => 'https://', :constraints => { :protocol => 'https://' } do
   #    match '/paypal-express' => 'payments#paypal_express', :as=>:paypal_express_checkout
