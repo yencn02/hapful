@@ -14,7 +14,7 @@ class Post < Product
     else
       "created_at DESC"
     end
-    Post.all(:order=>order, :limit=>n)
+    Post.active.all(:order=>order, :limit=>n)
   end
   
 end

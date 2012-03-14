@@ -6,6 +6,8 @@
       Price:
       = number_to_currency(post.price)
   .clear
+  By:
+  = post.user.username
   %br
   = link_to "Comments (#{post.comment_threads.count})", product_comments_path(post)
   
