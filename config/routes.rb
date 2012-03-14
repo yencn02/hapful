@@ -18,6 +18,7 @@ Hapful::Application.routes.draw do
       end
     end
     resources :products
+    resources :custom_emails
     root :to => 'dashboard#index'
   end
 
@@ -92,6 +93,7 @@ Hapful::Application.routes.draw do
   match '/complete' => 'orders#completed', :as=>:completed_order
  
   match '/paypal-express' => 'payments#paypal_express', :as=>:paypal_express_checkout
+  put '/redirect/:url' => 'pages#redirection'
   match '/p/:id' => 'products#show'
   match '/s/:seller'  =>'pages#seller', :as=>:seller_page
 

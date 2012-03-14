@@ -9,7 +9,7 @@ class OrderItem < ActiveRecord::Base
 
   def calculated_price
     calc_amount = product.effective_price.to_f
-    calc_amount += product_option.additional_cost unless product_option.nil?
+    calc_amount += product_option.additional_cost.to_f unless product_option.nil?
     calc_amount * quantity.to_f
   end
 end

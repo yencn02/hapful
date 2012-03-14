@@ -1,5 +1,6 @@
 = content_header "Products"
 
+= will_paginate @products
 .table
   %table
     %tr
@@ -14,6 +15,7 @@
         %td= product.post_url
         %td= product.state
         %td= product.use_hapful? ? 'Uses Hapful' : 'External link'
-        %td= link_to "Delete", admin_product_path(product), :method=>:delete, :confirm=>"Are you sure?"
-
+        %td
+          - if !product.state.eql?('deleted')
+            = link_to "Delete", admin_product_path(product), :method=>:delete, :confirm=>"Are you sure?"
     

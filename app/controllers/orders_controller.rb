@@ -53,7 +53,6 @@ class OrdersController < ApplicationController
         redirect_to [@order], :notice=>"Order state successfully changed."
       end
     end
-    
   end
 
   private

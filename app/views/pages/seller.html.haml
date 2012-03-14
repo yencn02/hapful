@@ -1,6 +1,16 @@
+%div{:style=>"margin-bottom: 10px"}
+  - if @seller == current_user
+    = link_to "Add new product ", [:new, :product], :class=>'greenBtn'
+
 %h3
   Products from
   = @seller.username
 - @products.each do |product|
   = render :partial=>'shared/product_image', :locals=>{:product=>product}
+.clear
+%h3
+  Posts made by
+  = @seller.username
+- @posts.each do |post|
+  = render :partial=>'shared/show_post', :locals=>{:post=>post}
 .clear

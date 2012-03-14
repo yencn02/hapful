@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
     set_product_behavior
     respond_to do |format|
       if @product.save()
-        format.html { redirect_to(@product, :notice => 'Product was successfully created.') }
+        format.html { redirect_to(seller_page_path(@product.user.username), :notice => 'Product was successfully created.') }
       else
         format.html { render :action => "new" }
       end
@@ -91,7 +91,7 @@ class ProductsController < ApplicationController
     state = if params[:commit].eql?("Save as Draft")
       {:state => "saved" }
     else
-      {:state => "published" }
+      {:state => "active" }
     end
     params[:product].merge!(state)
   end

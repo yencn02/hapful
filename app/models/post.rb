@@ -3,6 +3,7 @@ class Post < Product
   acts_as_commentable
   
   default_scope where({:use_hapful=>false})
+  named_scope :active, where({:state=>'active'})
 
   def self.sorted_from_params(sort_val,n=5)
     order = case sort_val

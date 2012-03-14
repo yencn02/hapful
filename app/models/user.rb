@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
 
 
 
-  has_many :products, :dependent=>:destroy
+  has_many :products, :class_name=>'Product', :conditions=>["use_hapful=?", true], :dependent=>:destroy
+  has_many :posts, :class_name=>'Product', :conditions=>["use_hapful=?", false], :dependent=>:destroy
+
   has_many :orders, :foreign_key=>'seller_id'
   has_many :merchant_accounts,  :class_name=>'UserMerchantAccount',:dependent=>:destroy do
     def for_type(type)

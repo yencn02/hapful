@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301072819) do
+ActiveRecord::Schema.define(:version => 20120311123715) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,15 @@ ActiveRecord::Schema.define(:version => 20120301072819) do
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "custom_emails", :force => true do |t|
+    t.string   "identifier"
+    t.text     "template"
+    t.string   "content_type"
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "order_addresses", :force => true do |t|
     t.integer  "order_id"

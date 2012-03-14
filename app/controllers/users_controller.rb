@@ -23,7 +23,9 @@ class UsersController < ApplicationController
     @user.password = params[:password]
     @user.password_confirmation = params[:password_confirmation]
     if @user.save(false)
-      sign_in_and_redirect(:user, @user, :notice=>'Password was updated.')
+      sign_in(@user, :bypass => true)
+      flash[:notice] = "You have successfully updated your password."
+      redirect_to user_dashboard_path
     else
       @message = "Password and Password Confirmation is not the same"
       render 'change_password'

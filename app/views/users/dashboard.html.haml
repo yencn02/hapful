@@ -33,9 +33,9 @@
   #account
     = link_to "Change Password", [:change_password, current_user]
     %br
-    %br
-    = link_to "Manage Account Details", [:edit, current_user]
-    %br
+    /%br
+    /= link_to "Manage Account Details", [:edit, current_user]
+    /%br
     %br
     = link_to "Manage Merchant Details", [:merchant_detail, current_user]
     /= link_to "Manage Merchant Accounts", [current_user, :user_merchant_accounts]

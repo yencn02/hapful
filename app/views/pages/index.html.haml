@@ -1,21 +1,22 @@
-.left{:style=>'float: left; width: 40%'}
-  %h1
-    Create a Free Link
-    %br
-    to your blog post!
 .left{:style=>'float: left; width: 60%'}
+  %h1
+    Create a 
+    Free Directory
+    %br
+    Listing of your blog post!
+.left{:style=>'float: left; width: 40%'}
   %h3 If you are selling anything on your blog - hapful will help!
   - if current_user
     %br
     = link_to "Try it Now!", new_product_path, :class=>"orangeBrick", :style=>'margin-left: 10px'
-    or
-    = link_to "Go to my Dashboard", '/my-dashboard'
+    /or
+    /= link_to "Go to my Dashboard", '/my-dashboard'
   - else
     %br
     = link_to "Try it Now!", trial_path, :class=>"orangeBrick", :style=>'margin-left: 10px'
-    or
-    = link_to "Login", '/login'
-    if existing user
+    /or
+    /= link_to "Login", '/login'
+    /if existing user
 .clear
 %br
 %hr
@@ -27,28 +28,40 @@
       %li= link_to "Most Viewed", "#most-viewed"
     #top-rated
       %h3 Top Rated Products
-      - @top_rateds.each do |top_rated|
-        = render :partial=>'shared/product_image', :locals=>{:product=>top_rated}
+      - if @top_rateds.count > 0
+        - @top_rateds.each do |top_rated|
+          = render :partial=>'shared/product_image', :locals=>{:product=>top_rated}
+      - else
+        %h5 No product as of this moment
       .clear
     #newest
       %h3 Newest Products
-      - @newly_addeds.each do |product|
-        = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      - if @newly_addeds.count > 0
+        - @newly_addeds.each do |product|
+          = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      - else
+        %h5 No product as of this moment
       .clear
     #most-viewed
       %h3 Most Viewed Products
-      - @most_viewed.each do |product|
-        = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      - if @most_viewed.count > 0
+        - @most_viewed.each do |product|
+          = render :partial=>'shared/product_image', :locals=>{:product=>product}
+      - else
+        %h5 No product as of this moment
       .clear
 .left{:style=>'float: left; width: 45%; margin-left: 30px; position: relative'}
   #post-loader{:style=>"position: absolute; top: 30%; background: #DDD; display: none"}
     = image_tag('init_load.gif')
-  %div{:style=>"margin-bottom: 10px"}
-    Sort posts by
-    = select_tag "sort_by", options_for_select(['newest', 'top rated', 'most viewed']), :onchange=>"sort_posts(this)"
-  #posts
-    - @posts.each do |post|
-      = render :partial=>'shared/show_post', :locals=>{:post=>post}
-  = link_to "See All Posts", '/posts'
+  - if @posts.count > 0
+    %div{:style=>"margin-bottom: 10px"}
+      Sort posts by
+      = select_tag "sort_by", options_for_select(['newest', 'top rated', 'most viewed']), :onchange=>"sort_posts(this)"
+    #posts
+      - @posts.each do |post|
+        = render :partial=>'shared/show_post', :locals=>{:post=>post}
+    /= link_to "See All Posts", '/posts'
+  - else
+    %h5 No posts as of this moment
 .clear
           

@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def index
-    @posts = Post.all
+    @posts = Post.active.all
     @top_rateds = Product.top_rated
     @newly_addeds = Product.newly_added
     @most_viewed = Product.most_viewed
@@ -21,7 +21,8 @@ class PagesController < ApplicationController
 
   def seller
     @seller = User.find_by_username(params[:seller])
-    @products = @seller.products
+    @products = @seller.products.active
+    @posts = @seller.posts.active
   end
 
   def order_tracking

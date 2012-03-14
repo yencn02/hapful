@@ -4,7 +4,7 @@
   .right
     %strong
       Price:
-      = post.price
+      = number_to_currency(post.price)
   .clear
   %br
   = link_to "Comments (#{post.comment_threads.count})", product_comments_path(post)

@@ -1,1 +1,5 @@
-= link_to @widget.title, "#{ProjectConfig.value("site_url")}#{url_for([:iframed, @product, @widget])}#{'?demo=1' if @demo}", :class=>"colorbox-iframe", :title=>"Store brought to you by Hapful"
+- if @product.deleted?
+  %h3
+    Product has been deleted by Hapful.com
+- else
+  = link_to @widget.title, "#{ProjectConfig.value("site_url")}#{url_for([:iframed, @product, @widget])}#{'?demo=1' if @demo}", :class=>"colorbox-iframe", :title=>"Store brought to you by Hapful"

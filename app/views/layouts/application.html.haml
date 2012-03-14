@@ -21,9 +21,9 @@
     = stylesheet_link_tag 'typography'
     = stylesheet_link_tag 'buttons'
     = stylesheet_link_tag 'colorbox'
-    /= stylesheet_link_tag 'jquery-ui-1.8.16.custom'
+    = stylesheet_link_tag 'jquery-ui-1.8.16.custom'
     /= stylesheet_link_tag 'excite-bike/excite-bike'
-    = stylesheet_link_tag 'blitzer/blitzer'
+    /= stylesheet_link_tag 'blitzer/blitzer'
     = stylesheet_link_tag 'application'
     = stylesheet_link_tag 'landing_page'
 
@@ -33,16 +33,16 @@
   %body
     #loading
     #top_navigation
-      = image_tag("test-logo.png", :style=>"margin-left: 10px; float:left")
+      =link_to image_tag("test-logo.png", :style=>"margin-left: 10px; float:left"), '/'
       .controls
-        = link_to "home", '/'
-        \|
+        /= link_to "home", '/'
+        /\|
         = link_to "faqs", '/'
         \|
         = link_to "my cart", '/my-cart'
         \|
-        = link_to "market", '/market'
-        \|
+        /= link_to "market", '/market'
+        /\|
         - if user_signed_in?
           = link_to "my account", user_dashboard_path
           \|

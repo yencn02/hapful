@@ -2,7 +2,11 @@
   .infobox
     Your Order with Reference Number
     %strong= @order.reference_number
-    is now
-    %strong= @order.state.humanize
+    - if @order.state.eql?("complete")
+      %strong
+        has already been shipped to you. 
+    - else
+      is now
+      %strong= @order.state.humanize
 %br
 Thank you for using Hapful.com
