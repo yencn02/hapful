@@ -1,5 +1,7 @@
 class Admin::CustomEmailsController < Admin::BaseController
 
+  uses_yui_editor
+  
   def index
     CustomEmail::IDENTIFIERS.each do |ident|
       email = CustomEmail.find_or_create_by_identifier(ident, 

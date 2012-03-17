@@ -6,3 +6,8 @@ function initialize_droppables(){
     }
   })
 }
+
+function add_to_yui(id, content){
+  new_content =  $('#'+id).contents().find('body').html() + content;
+  $('#'+id).contents().find('body').html(new_content);
+}
