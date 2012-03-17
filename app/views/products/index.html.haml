@@ -3,19 +3,33 @@
   %h3 Product List
 %br
 #list
+  %h3 Products
   %table.zebra
     %thead
       %tr
         %th Name
-        %th Behavior
         %th Options
     - @products.each do |product|
       %tr
         %td= link_to product.name, product
-        %td= product.use_hapful? ? 'Uses Hapful' : 'External link'
         %td
           /= link_to 'Widget', [:edit, product, product.widget] #disbaled for now
           /\|
           = link_to 'Edit', edit_product_path(product)
           \|
           = link_to 'Delete', product, :confirm => 'Are you sure?', :method => :delete
+  %h3 Posts
+  %table.zebra
+    %thead
+      %tr
+        %th Name
+        %th Options
+    - @posts.each do |post|
+      %tr
+        %td= link_to post.name, post
+        %td
+          /= link_to 'Widget', [:edit, product, product.widget] #disbaled for now
+          /\|
+          = link_to 'Edit', edit_product_path(post)
+          \|
+          = link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete

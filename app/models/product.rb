@@ -89,21 +89,27 @@ class Product < ActiveRecord::Base
     category.products.find(:all, :limit=>limit, :conditions=>["id != ?", self.id])
   end
 
-  def self.paginated_search(opts, page, per_page)
+  def self.paginated_search(opts, page, per_page, use_hapful=true)
     @opts = opts
+    @use_hap = use_hapful ? 1 : 0
     self.paginate_by_sql(search_sql, :page=>page, :per_page=>per_page)
   end
 
-  def self.paginated_search_count(opts)
+  def self.paginated_search_count(opts, use_hapful=true)
     @opts = opts
+    @use_hap = use_hapful ? 1 : 0
     self.count_by_sql(search_sql)
   end
 
   def self.search_sql
     sql_statement = "SELECT * FROM #{Product.table_name} WHERE "
-    sql_statement << "name LIKE ? " if @opts[:category]
+    sql_statement << "name LIKE ? " if @opts[:keyword]
     sql_statement << "AND category_id = ?" if @opts[:category]
-    [sql_statement, "%#{@opts[:keyword]}%", @opts[:category]]
+    sql_statement << "AND use_hapful = #{@use_hap} AND state != 'deleted' "
+    ret_arr = [sql_statement]
+    ret_arr << "%#{@opts[:keyword]}%" if @opts[:keyword]
+    ret_arr << @opts[:category] if @opts[:category]
+    ret_arr
   end
 
   def set_shipping_options(params)

@@ -16,5 +16,13 @@ class Post < Product
     end
     Post.active.all(:order=>order, :limit=>n)
   end
+
+  def self.paginated_search(opts, page, per_page)
+    Product.paginated_search(opts, page, per_page, false)
+  end
+  
+  def self.paginated_search_count(opts)
+    Product.paginated_search_count(opts, false)
+  end
   
 end

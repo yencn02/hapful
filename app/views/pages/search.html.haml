@@ -1,28 +1,33 @@
 %h4 Search Results
 
-%strong
-  = @products.total_entries
-results found for
-%strong
-  = "'#{params[:search][:keyword]}'"
-%br
-= will_paginate @products
-- @products.each do |product|
-  %div{:style=>"position: relative; bottom: 0;"}
-    %table
-      %tr{:style=>"border-bottom: 1px solid gray"}
-        %td{:width=>"110px"}
-          .image-holder
-            = link_to image_tag(product.images.first.image(:thumbnail)), product
-        %td{:style=>"vertical-align: top; width:50%" }
-          %h5= link_to product.name, product
-          %br
-          = product.description
-          - if product.options.count > 0
-            %div{:style=>"position: absolute; bottom: 0;"}
-              Available Variants :
-              - product.options.collect(&:description).join(',')
-        %td{:style=>"vertical-align: top"}
-          %h5= number_to_currency(product.price)
-          = link_to "Show Product", product.redirection_path,:class=>"greenBtn"
-  %hr
+- if !@products.nil? || !@posts.nil?
+  %strong
+    = @products.total_entries + @posts.total_entries
+  results found for
+  %strong
+    = "'#{params[:search][:keyword]}'"
+  %br
+  = will_paginate @products
+  - @products.each do |product|
+    %div{:style=>"position: relative; bottom: 0;"}
+      %table
+        %tr{:style=>"border-bottom: 1px solid gray"}
+          %td{:width=>"110px"}
+            .image-holder
+              = link_to image_tag(product.images.first.image(:thumbnail)), product
+          %td{:style=>"vertical-align: top; width:50%" }
+            %h5= link_to product.name, product
+            %br
+            = product.description
+            - if product.options.count > 0
+              %div{:style=>"position: absolute; bottom: 0;"}
+                Available Variants :
+                - product.options.collect(&:description).join(',')
+          %td{:style=>"vertical-align: top"}
+            %h5= number_to_currency(product.price)
+            = link_to "Show Product", product.redirection_path,:class=>"greenBtn"
+    %hr
+  - @posts.each do |post|
+    = render :partial=>'shared/show_post', :locals=>{:post=>post}
+- else
+  = @message

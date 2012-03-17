@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def index
-    @posts = Post.active.all
+    @posts = Post.active.all(:order=>"created_at DESC")
     @top_rateds = Product.top_rated
     @newly_addeds = Product.newly_added
     @most_viewed = Product.most_viewed
@@ -14,9 +14,17 @@ class PagesController < ApplicationController
   end
 
   def search
-    per_page = ProjectConfig.value('show_per_page') || 25
-    @products = Product.paginated_search(params[:search], params[:page], per_page)
-    @result_count = Product.paginated_search_count(params[:search])
+    if params[:search]
+      if params[:search][:keyword].size > 3
+        per_page = ProjectConfig.value('show_per_page') || 25
+        @products = Product.paginated_search(params[:search], params[:page], per_page)
+        @posts = Post.paginated_search(params[:search], params[:page], per_page)
+      else
+        @message = "Keyword should be greater than 3 characters"
+      end
+    else
+      redirect_to '/'
+    end
   end
 
   def seller
@@ -83,6 +91,14 @@ class PagesController < ApplicationController
         end
       end
     end
+  end
+
+  def faqs
+    @faqs = Article.all
+  end
+
+  def privacy_policy
+    @policy = Article.find_by_page("privacy_policy") || Article.new
   end
 
 

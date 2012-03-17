@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
   def index
     if current_user
       @products = current_user.products
+      @posts = current_user.posts
     else
       redirect_to market_path
     end
