@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged
 
-  PAGES = [:main, :help, :faqs]
+  PAGES = [:main, :help, :faqs, :terms, :privacy_policy]
 
   scope :enabled, where({:enabled=>true})
   scope :welcome, where({:page=>'main'})

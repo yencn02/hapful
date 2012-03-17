@@ -94,12 +94,14 @@ class PagesController < ApplicationController
   end
 
   def faqs
-    @faqs = Article.all
+    @faqs = Article.all(:conditions=>{:page=>[:main, :faqs]})
   end
 
-  def privacy_policy
-    @policy = Article.find_by_page("privacy_policy") || Article.new
+  [:privacy_policy, :terms].each do |p|
+    define_method p do
+      @article = Article.find_by_page(p) || Article.new
+      render 'pages/article'
+    end
   end
-
-
+  
 end
