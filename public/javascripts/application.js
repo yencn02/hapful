@@ -134,7 +134,9 @@ Comment = {
       $(this).parents(".comment").find("#comment_body").focus();
       return false
     });
-
+    $("input[type=submit]").click(function(){
+      $(this).parents("form").submit();
+    });
     $(".new_comment .cancel").unbind().click(function(){
       $(this).parents(".subcomment.reply").hide();
       return false;
