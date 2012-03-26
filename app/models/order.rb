@@ -139,7 +139,7 @@ class Order < ActiveRecord::Base
   end
 
   def send_new_order_email_to_seller
-    OrderMailer.new_order_email(self).deliver
+    OrderMailer.new_order_email_for_seller(self).deliver
   end
   
 end
