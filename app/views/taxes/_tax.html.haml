@@ -1,0 +1,15 @@
+- @tax = tax
+%table{:style => "width:auto"}
+  %tr
+    %td
+      %span{:style => "position: absolute;margin-top: -20px;"}
+        %span{:style => "color:red"} *
+        State
+      = state_select :tax, :state, "US", {:selected => tax.state}, {:name => "taxes[#{tax.id}][state]", :style => "width:200px;"}
+    %td
+      %span{:style => "position: absolute;margin-top: -20px;"}
+        %span{:style => "color:red"} *
+        Tax%
+      = text_field_tag("taxes[#{tax.id}][percentage]", tax.percentage, :size => 10)
+    %td
+      = link_to "Delete", "taxes/#{tax.id}", :confirm => "Are you sure", :method => :delete, :remote => true

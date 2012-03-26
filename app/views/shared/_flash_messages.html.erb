@@ -2,8 +2,8 @@
   <% flash.each do |key, msg| %>
     <%= content_tag :div, msg, :class => "flash " + key.to_s, :id => key.to_s + "-message" %>
     <%= content_tag :script, :type => "text/javascript" do %>
-      $('#<%= key.to_s + "-message" %>').css('display', 'none');
-      $('#<%= key.to_s + "-message" %>').slideDown().delay(3000).slideUp();
+      $('.flash.<%= key.to_s %>').css('display', 'none');
+      $('.flash.<%= key.to_s %>').slideDown().delay(3000).slideUp();
     <% end %>
   <% end %>
 </div>

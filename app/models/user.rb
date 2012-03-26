@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
 
 
 
+  has_many :taxes, :class_name => "Tax", :dependent=>:destroy
   has_many :products, :class_name=>'Product', :conditions=>["use_hapful=?", true], :dependent=>:destroy
   has_many :posts, :class_name=>'Product', :conditions=>["use_hapful=?", false], :dependent=>:destroy
 

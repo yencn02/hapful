@@ -21,6 +21,7 @@
   %ul
     %li= link_to "Orders", "#orders"
     %li= link_to "My Products", products_path(:ajax=>true)
+    %li= link_to "Sale Taxes", "#taxes"
     %li= link_to "My Account", "#account"
   #orders
     %h4
@@ -29,7 +30,8 @@
         = link_to "View All", [:orders]
       .clear
     = render :partial=>'orders/table', :locals=>{:orders=>current_user.orders.recent}
-          
+  #taxes
+    = render :partial=>'taxes/taxes'
   #account
     = link_to "Change Password", [:change_password, current_user]
     %br

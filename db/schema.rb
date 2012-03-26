@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311123715) do
+ActiveRecord::Schema.define(:version => 20120326064440) do
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20120311123715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shipping_method_id"
+    t.float    "tax"
   end
 
   add_index "orders", ["id", "reference_number"], :name => "index_orders_on_id_and_transaction_reference_id", :unique => true
@@ -151,15 +152,6 @@ ActiveRecord::Schema.define(:version => 20120311123715) do
     t.string   "name"
     t.string   "description"
     t.string   "requisite_merchant_account"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "posts", :force => true do |t|
-    t.string   "title"
-    t.string   "url"
-    t.float    "price"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -287,6 +279,12 @@ ActiveRecord::Schema.define(:version => 20120311123715) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "taxes", :force => true do |t|
+    t.integer "user_id"
+    t.string  "state"
+    t.float   "percentage"
   end
 
   create_table "user_merchant_accounts", :force => true do |t|

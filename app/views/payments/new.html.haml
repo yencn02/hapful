@@ -19,11 +19,23 @@
           = "(+#{ number_to_currency(item.additional_cost.to_f )})" if item.additional_cost.to_f != 0.0
       %td= item.quantity.to_i
       %td= number_to_currency(item.calculated_price)
+  - if @order.tax_amount > 0
+    %tr
+      %td{:colspan=>3}
+        %strong.right Tax: #{@order.tax}%
+      %td
+        %strong= number_to_currency(@order.tax_amount)
+  - if (@order.shipping_amount + @order.handling_amount) > 0
+    %tr
+      %td{:colspan=>3}
+        %strong.right Shipping and handling:
+      %td
+        %strong= number_to_currency(@order.shipping_amount + @order.handling_amount)
   %tr
     %td{:colspan=>3}
       %strong.right TOTAL
     %td
-      %strong= number_to_currency(@order.subtotal_amount)
+      %strong= number_to_currency(@order.total_price)
 %h5 Billing Address
 %table
   %tr

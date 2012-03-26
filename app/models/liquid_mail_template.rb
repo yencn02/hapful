@@ -28,7 +28,7 @@ class LiquidMailTemplate < ActionMailer::Base
 
   def initialize_custom_email
     @custom_email = CustomEmail.find_by_identifier(@identifier)
-    @subject = @custom_email.subject
+    @subject = @custom_email.subject if @custom_email
   end
   
 end

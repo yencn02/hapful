@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
   belongs_to :payment_type
   belongs_to :shipping_method, :foreign_key=>'shipping_method_id', :class_name=>'ProductShippingOption'
 
+  before_save :set_tax_amount
   before_save :save_total_amount
   before_create :set_product_quantities
   
@@ -56,7 +57,7 @@ class Order < ActiveRecord::Base
     items.each do |item|
       deductable_object = item.product_option_id.nil? ? item.product : item.product_option
       deductable_object.ordered_quantity += item.quantity
-      deductable_object.save(false)
+      deductable_object.save(:validate => false)
     end
   end
 
@@ -94,8 +95,18 @@ class Order < ActiveRecord::Base
     shipping_method.amount.to_f
   end
 
+  def set_tax_amount
+    t = 0.0
+    if self.billing_address && self.billing_address.country == "US"
+      user_tax = Tax.where(:state => self.billing_address.state, :user_id => self.seller_id).first
+      t = user_tax.percentage if user_tax
+    end
+    self.tax = t
+  end
+  
   def tax_amount
-    0.0
+    percentage = (self.tax || set_tax_amount)
+    subtotal_amount * (percentage/100)
   end
 
   def handling_amount

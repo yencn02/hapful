@@ -6,8 +6,9 @@
         %td Email
         %td= f.email_field :email
     %hr
-    = f.fields_for :billing_address do |billing|
-      %table
+    - @order.billing_address ||= OrderAddress.new
+    = f.fields_for :billing_address, @order.billing_address do |billing|
+      %table.address
         %tr
           %td First Name
           %td= billing.text_field :first_name
@@ -22,13 +23,17 @@
           %td= billing.text_field :city
         %tr
           %td State
-          %td= billing.text_field :state
+          %td
+            - begin
+              = billing.state_select "state",  (@order.billing_address.country || "US"), {}, {:class => "state"}
+            - rescue
+              %select{:name=>"order[billing_address_attributes][country]", :class=>"state"}
         %tr
           %td Postal Code
           %td= billing.text_field :postal_code
         %tr
           %td Country
-          %td= billing.text_field :country
+          %td= billing.country_select :country, "US", {}, {:class => "country"}
     - dif_ship = !f.object.shipping_address.nil?
     %p
       = f.check_box :different_address, |
@@ -36,7 +41,7 @@
       %label Shipping Address is different from billing address
     #shipping-address{:style=>"display: #{f.object.different_address? ? 'block' : 'none'}"}
       = f.fields_for :shipping_address do |shipping|
-        %table
+        %table.address
           %tr
             %td First Name
             %td= shipping.text_field :first_name
@@ -51,13 +56,17 @@
             %td= shipping.text_field :city
           %tr
             %td State
-            %td= shipping.text_field :state
+            %td
+              - begin
+                = shipping.state_select "state",  (@order.billing_address.country || "US"), {}, {:class => "state"}
+              - rescue
+                %select{:name=>"order[shipping_address_attributes][state]", :class=>"state"}
           %tr
             %td Postal Code
             %td= shipping.text_field :postal_code
           %tr
             %td Country
-            %td= shipping.text_field :country
+            %td= shipping.country_select :country, "US", {}, {:class => "country"}
         = shipping.hidden_field :diff_add, :value=>f.object.different_address?
   .half
     %h4 Review your order
@@ -75,3 +84,5 @@
             )
     = f.submit "Place Order", :class=>"greenBtn"
   .clear
+
+= states_by_country

@@ -57,6 +57,8 @@ $(document).ready(function(){
     }
   });
   Comment.init();
+  Checkout.init();
+  SaleTaxes.init();
 });
 
 function add_to_yui(id, content){
@@ -140,6 +142,27 @@ Comment = {
     $(".new_comment .cancel").unbind().click(function(){
       $(this).parents(".subcomment.reply").hide();
       return false;
+    });
+  }
+}
+
+Checkout = {
+  init: function(){
+    $("select.country").unbind().bind("change", function(){
+      var country = $(this).val();
+      var state = $(this).parents(".address").first().find("select.state");
+      var options = states[country];
+      state.html(options);
+    });
+  }
+}
+
+SaleTaxes = {
+  init: function(){
+    $("form.new_tax .new-tax-btn, form.new_tax .update-taxes").click(function(){
+      $(this).parents("form").ajaxSubmit({
+        dataType: 'script'
+      });
     });
   }
 }

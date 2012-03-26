@@ -42,6 +42,12 @@ Hapful::Application.routes.draw do
     resources :user_merchant_accounts, :path=>:merchaccounts
     resources :user_payment_methods, :path=>:paygates
   end
+  
+  resources :taxes do
+    collection do
+      post :save
+    end
+  end
 
   resources :products do
     resources :product_widgets do
