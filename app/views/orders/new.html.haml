@@ -25,15 +25,15 @@
           %td State
           %td
             - begin
-              = billing.state_select "state",  (@order.billing_address.country || "US"), {}, {:class => "state"}
+              = billing.state_select "state",  (@order.billing_address.country || "US"), {}, {:class => "state", :style => "width: 290px"}
             - rescue
-              %select{:name=>"order[billing_address_attributes][country]", :class=>"state"}
+              %select{:name=>"order[billing_address_attributes][country]", :class=>"state", :style => "width: 290px"}
         %tr
           %td Postal Code
           %td= billing.text_field :postal_code
         %tr
           %td Country
-          %td= billing.country_select :country, "US", {}, {:class => "country"}
+          %td= billing.country_select :country, "US", {}, {:class => "country", :style => "width: 290px"}
     - dif_ship = !f.object.shipping_address.nil?
     %p
       = f.check_box :different_address, |
@@ -58,15 +58,15 @@
             %td State
             %td
               - begin
-                = shipping.state_select "state",  (@order.billing_address.country || "US"), {}, {:class => "state"}
+                = shipping.state_select "state",  (@order.billing_address.country || "US"), {}, {:class => "state", :style => "width: 290px"}
               - rescue
-                %select{:name=>"order[shipping_address_attributes][state]", :class=>"state"}
+                %select{:name=>"order[shipping_address_attributes][state]", :class=>"state", :style => "width: 290px"}
           %tr
             %td Postal Code
             %td= shipping.text_field :postal_code
           %tr
             %td Country
-            %td= shipping.country_select :country, "US", {}, {:class => "country"}
+            %td= shipping.country_select :country, "US", {}, {:class => "country", :style => "width: 290px"}
         = shipping.hidden_field :diff_add, :value=>f.object.different_address?
   .half
     %h4 Review your order
